@@ -1,0 +1,16 @@
+@import '../../../colors';
+
+.LoginTab {
+    margin: 0 0 0 auto;
+    text-decoration: none;
+    color: $color2;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: $color4;
+    transition: all 200ms ease-out;
+}
+
+.LoginTab:hover {
+    background-color: $color2;
+    color: $color4;
+}

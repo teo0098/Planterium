@@ -1,0 +1,37 @@
+@import '../../../../colors';
+
+.Word {
+    background: $color4;
+    color: $color2;
+    display: inline-block;
+    border-radius: 5px;
+    width: 250px;
+    letter-spacing: 2px;
+}
+
+.Word__div {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.Word__text {
+    text-align: center;
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+@media (max-width: 1200px) {
+    .Word {
+        width: 200px;
+    }
+}
+
+@media (max-width: 300px) {
+    .Word {
+        width: 100%;
+    }
+}

@@ -1,0 +1,70 @@
+@import '../../../colors';
+
+.Intro {
+    height: 100vh;
+    position: relative;
+    padding: 70px 5vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.Intro::after {
+    content: '';
+    height: inherit;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 30vw 100vh 30vw;
+    border-color: transparent $color1 $color1 transparent;
+    z-index: -1000;
+}
+
+.Intro__header {
+    width: 60%;
+}
+
+.Intro__h1 {
+    font-size: 40px;
+}
+
+@media (max-width: 1200px) {
+    .Intro__h1 {
+        font-size: 35px;
+    }
+
+    .Intro__header {
+        width: 70%;
+    }
+}
+
+@media (max-width: 900px) {
+    .Intro__h1 {
+        font-size: 30px;
+    }
+
+    .Intro__header {
+        width: 80%;
+    }
+
+    .Intro__icon {
+        display: none;
+    }
+}
+
+@media (max-width: 700px) {
+    .Intro {
+        justify-content: center;
+    }
+
+    .Intro__h1 {
+        font-size: 25px;
+    }
+
+    .Intro__header {
+        width: 100%;
+    }
+}

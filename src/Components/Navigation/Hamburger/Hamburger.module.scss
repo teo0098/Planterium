@@ -1,0 +1,55 @@
+@import '../../../colors';
+
+.Hamburger {
+    width: 25px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.Hamburger__dashes {
+    width: 25px;
+    height: 4px;
+    border-radius: 5px;
+    background-color: $color4;
+    position: relative;
+}
+
+.Hamburger__dashes::before, 
+.Hamburger__dashes::after {
+    position: absolute;
+    width: inherit;
+    height: inherit;
+    border-radius: inherit;
+    background-color: inherit;
+    content: '';
+}
+
+.Hamburger__dashes::before {
+    top: 7px;
+}
+
+.Hamburger__dashes::after { 
+    bottom: 7px; 
+}
+
+.Hamburger__dashes--close {
+    background: transparent;
+    transition: all 300ms ease-out 1200ms;
+}
+
+.Hamburger__dashes--close::before {
+    background: $color4;
+    top: 0;
+    transform: rotate(45deg);
+    transition: all 300ms ease-out 1200ms;
+}
+
+.Hamburger__dashes--close::after {
+    background: $color4;
+    bottom: 0;
+    transform: rotate(-45deg);
+    transition: all 300ms ease-out 1200ms;
+}

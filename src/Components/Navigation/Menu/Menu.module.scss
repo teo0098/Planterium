@@ -1,0 +1,84 @@
+@import '../../../colors';
+
+.Menu {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: $color3;
+    color: $color4;
+}
+
+.Menu__options {
+    width: 30%;
+    background-color: $color2;
+    height: inherit;
+    display: grid;
+    grid-template-columns: 100%;
+    row-gap: 5vh;
+    align-content: flex-start;
+    justify-items: center;
+    padding: 10px;
+}
+
+.Menu__hamburger {
+    justify-self: flex-end;
+    border-radius: 5px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.Menu__nav {
+    display: grid;
+    text-align: center;
+    width: 50%;
+    justify-content: center;
+    row-gap: 20px;
+    grid-template-columns: 100%;
+}
+
+.Menu__link {
+    text-decoration: none;
+    color: $color4;
+    border-bottom: 0.1px solid $color4;
+    padding: 5px;
+    font-size: 18px;
+    width: 100%;
+    display: block;
+    transition: all 100ms ease-out;
+}
+
+.Menu__link:hover {
+    box-shadow: 3px 3px 5px 1px $color4;
+}
+
+@media (max-width: 1400px) {
+    .Menu__options {
+        width: 50%;
+    }
+}
+
+@media (max-width: 900px) {
+    .Menu__options {
+        width: 70%;
+    }
+}
+
+@media (max-width: 600px) {
+    .Menu__options {
+        width: 80%;
+    }
+
+    .Menu__nav {
+        width: 90%;
+    }
+}
+
+@media (max-width: 400px) {
+    .Menu__options {
+        width: 90%;
+    }
+}

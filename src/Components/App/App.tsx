@@ -1,10 +1,21 @@
 import React from 'react';
-import './App.scss';
+import { Switch, Route } from 'react-router-dom';
 
-const App : React.FC = () => {
-  return (
-    <h1>Hello</h1>
-  )
-}
+import AppStyles from './App.module.scss';
+import Home from '../Home/Home';
+import Navigation from '../Navigation/Navigation';
+import Footer from '../Footer/Footer';
+
+const App : React.FC = () => (
+  <div className={AppStyles.App}>
+    <div>
+      <Navigation />
+      <Switch>
+        <Route path='/' component={Home} />
+      </Switch>
+    </div>
+    <Footer />
+  </div>
+)
 
 export default App;
