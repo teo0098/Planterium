@@ -1,0 +1,24 @@
+@import '../../../colors';
+
+.Features {
+    min-height: 60vh;
+    display: grid;
+    grid-template-columns: repeat(3, 25%);
+    justify-content: space-around;
+    align-content: center;
+}
+
+@media (max-width: 900px) {
+    .Features {
+        grid-template-columns: 50%;
+        row-gap: 30px;
+        align-content: space-around;
+        padding: 30px;
+    }
+}
+
+@media (max-width: 600px) {
+    .Features {
+        grid-template-columns: 80%;
+    }
+}

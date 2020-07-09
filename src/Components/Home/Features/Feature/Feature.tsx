@@ -1,0 +1,20 @@
+import React from 'react';
+import { motion } from 'framer-motion';
+
+import FeatureStyles from './Feature.module.scss';
+import FeatureProps from './featureProps';
+
+const Feature : React.FC<FeatureProps> = ({ index, icon, desc }) => {
+    return (
+        <motion.section 
+        initial={{ opacity: 0, x: '10%' }}
+        animate={{ opacity: 1, x: '0' }}
+        transition={{ delay: index * 0.5, type: 'spring', stiffness: 300}}
+        className={FeatureStyles.Features__section}>
+            {icon}
+            <p className={FeatureStyles.Features__p}> {desc} </p>
+        </motion.section>
+    )
+}
+
+export default Feature;

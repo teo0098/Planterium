@@ -24,7 +24,7 @@
 }
 
 .Intro__header {
-    width: 60%;
+    width: 50%;
 }
 
 .Intro__h1 {
@@ -58,6 +58,7 @@
 @media (max-width: 700px) {
     .Intro {
         justify-content: center;
+        text-align: center;
     }
 
     .Intro__h1 {
