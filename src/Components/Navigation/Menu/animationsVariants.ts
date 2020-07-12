@@ -2,14 +2,12 @@ export const parentVariants = {
     hidden: {
         opacity: 0,
         transition: {
-            when: 'afterChildren',
             ease: 'easeOut',
         }
     },
     visible: {
         opacity: 1,
         transition: {
-            when: 'beforeChildren',
             ease: 'easeOut',
         }
     }

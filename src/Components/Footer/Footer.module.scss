@@ -1,11 +1,13 @@
-@import '../../colors';
+@import '../../scssSettings/colors';
+@import '../../scssSettings/settings';
 
 .Footer {
-    height: 70px;
+    min-height: $footerHeight;
     background-color: $color4;
     color: $color2;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
+    padding: 10px;
 }

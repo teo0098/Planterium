@@ -1,4 +1,4 @@
-@import '../../../colors';
+@import '../../../scssSettings/colors';
 
 .Hamburger {
     width: 25px;
@@ -37,19 +37,19 @@
 
 .Hamburger__dashes--close {
     background: transparent;
-    transition: all 300ms ease-out 1200ms;
+    transition: all 300ms ease-out 900ms;
 }
 
 .Hamburger__dashes--close::before {
     background: $color4;
     top: 0;
     transform: rotate(45deg);
-    transition: all 300ms ease-out 1200ms;
+    transition: all 300ms ease-out 900ms;
 }
 
 .Hamburger__dashes--close::after {
     background: $color4;
     bottom: 0;
     transform: rotate(-45deg);
-    transition: all 300ms ease-out 1200ms;
+    transition: all 300ms ease-out 900ms;
 }

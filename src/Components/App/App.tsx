@@ -3,15 +3,15 @@ import { Switch, Route } from 'react-router-dom';
 
 import AppStyles from './App.module.scss';
 import Home from '../Home/Home';
-import Navigation from '../Navigation/Navigation';
 import Footer from '../Footer/Footer';
+import Contact from '../Contact/Contact';
 
 const App : React.FC = () => (
   <div className={AppStyles.App}>
     <div>
-      <Navigation />
       <Switch>
-        <Route path='/' component={Home} />
+        <Route exact path='/' component={Home} />
+        <Route path='/contact' component={Contact} />
       </Switch>
     </div>
     <Footer />

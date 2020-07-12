@@ -9,9 +9,10 @@ const useChangeWord : Function = () => {
     const [word, setWord] = useState<number>(0);
 
     useEffect(() => {
-        setTimeout(() => {
+        const timeout = setTimeout(() => {
             setWord(prevState => prevState >= 2 ? 0 : ++prevState);
         }, 3000);
+        return () => clearTimeout(timeout);
     }, [word]);
 
     return [ word, words[word] ];

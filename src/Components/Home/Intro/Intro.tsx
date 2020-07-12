@@ -12,8 +12,8 @@ const Intro : React.FC = () => (
         </header>
         <motion.div
         className={IntroStyles.Intro__icon}
-        animate={{ transform: 'rotate(360deg)', transformOrigin: 'center center' }}
-        transition={{ loop: Infinity, ease: "linear", duration: 20 }}>
+        animate={{ transform: 'rotate(360deg)' }}
+        transition={{ loop: Infinity, ease: "linear", duration: 30 }}>
             <SettingsIcon style={{ fontSize: '200px' }} />
         </motion.div>
     </div>

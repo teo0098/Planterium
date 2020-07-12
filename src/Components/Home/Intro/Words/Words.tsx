@@ -11,7 +11,7 @@ const Words : React.FC = () => {
     return (
         <div className={WordsStyles.Word}>
             <div className={WordsStyles.Word__div}>
-                <AnimatePresence exitBeforeEnter>
+                <AnimatePresence exitBeforeEnter custom={word} initial={false}>
                     {word > -1 && (
                         <motion.span
                         className={WordsStyles.Word__text}

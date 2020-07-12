@@ -1,4 +1,4 @@
-@import '../../../colors';
+@import '../../../scssSettings/colors';
 
 .Menu {
     width: 100%;
@@ -8,6 +8,7 @@
     left: 0;
     background-color: $color3;
     color: $color4;
+    z-index: 1000;
 }
 
 .Menu__options {
