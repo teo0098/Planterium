@@ -1,63 +1,13 @@
 @import '../../scssSettings/colors';
 
 .Contact {
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.Contact__div {
-    background-color: $color5;
-    border-radius: 5px;
-    padding: 20px;
-    width: 25%;
-    text-align: center;
-    box-shadow: 0 0 5px 1px $color4;
-}
-
-.Contact__inputs {
     display: grid;
     row-gap: 20px;
-    margin: 20px;
-}
-
-@media (max-width: 1200px) {
-    .Contact__div {
-        width: 30%;
-    }
-}
-
-@media (max-width: 1100px) {
-    .Contact__div {
-        width: 40%;
-    }
-}
-
-@media (max-width: 800px) {
-    .Contact__div {
-        width: 50%;
-    }
-}
-
-@media (max-width: 650px) {
-    .Contact__div {
-        width: 60%;
-    }
-}
-
-@media (max-width: 500px) {
-    .Contact__div {
-        width: 80%;
-    }
+    margin: 20px 10px;
 }
 
 @media (max-width: 400px) {
-    .Contact__div {
-        width: 100%;
-    }
-
-    .Contact__inputs {
+    .Contact {
         margin: 20px 0;
     }
 }

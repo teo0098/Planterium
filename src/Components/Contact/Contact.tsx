@@ -10,30 +10,29 @@ import buttonStyles from '../../tsStyleSettings/buttonStyles';
 import Name from '../Inputs/Name/Name';
 import Email from '../Inputs/Email/Email';
 import Message from '../Inputs/Message/Message';
+import FormLayout from '../FormLayout/FormLayout';
 
-const Contact : React.FC = () => {
-    return (
-        <React.Fragment>
-            <Navigation variant={2} />
-            <div className={ContactStyles.Contact}>
-                <Form onSubmit={onSubmit}>
-                    {({ handleSubmit }) => 
-                        <div className={ContactStyles.Contact__div}>
-                            <EmailIcon style={{ fontSize: '40px' }} />
-                            <form className={ContactStyles.Contact__form} spellCheck="false" onSubmit={handleSubmit}>
-                                <div className={ContactStyles.Contact__inputs}>
-                                    <Name />
-                                    <Email />
-                                    <Message />
-                                </div>
-                                <Button style={buttonStyles} type="submit" variant="contained" color="primary">Send</Button>
-                            </form>
-                        </div>
-                    }
-                </Form>
-            </div>
-        </React.Fragment>
-    )
-}
+const Contact : React.FC = () => (
+    <React.Fragment>
+        <Navigation variant={2} />
+        <FormLayout>
+            <Form onSubmit={onSubmit}>
+                {({ handleSubmit }) => 
+                    <React.Fragment>
+                        <EmailIcon style={{ fontSize: '40px' }} />
+                        <form spellCheck="false" onSubmit={handleSubmit}>
+                            <div className={ContactStyles.Contact}>
+                                <Name />
+                                <Email />
+                                <Message />
+                            </div>
+                            <Button style={buttonStyles} type="submit" variant="contained" color="primary">Send</Button>
+                        </form>
+                    </React.Fragment>
+                }
+            </Form>
+        </FormLayout>
+    </React.Fragment>
+)
 
 export default Contact;

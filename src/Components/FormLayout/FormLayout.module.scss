@@ -1,0 +1,57 @@
+@import '../../scssSettings/colors';
+
+.FormLayout {
+    padding: 50px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.FormLayout__div {
+    background-color: $color5;
+    border-radius: 5px;
+    padding: 20px;
+    width: 25%;
+    text-align: center;
+    box-shadow: 0 0 5px 1px $color4;
+}
+
+@media (max-width: 1200px) {
+    .FormLayout__div {
+        width: 30%;
+    }
+}
+
+@media (max-width: 1100px) {
+    .FormLayout__div {
+        width: 40%;
+    }
+}
+
+@media (max-width: 800px) {
+    .FormLayout {
+        padding: 20px;
+    }
+    
+    .FormLayout__div {
+        width: 50%;
+    }
+}
+
+@media (max-width: 650px) {
+    .FormLayout__div {
+        width: 60%;
+    }
+}
+
+@media (max-width: 500px) {
+    .FormLayout__div {
+        width: 80%;
+    }
+}
+
+@media (max-width: 400px) {
+    .FormLayout__div {
+        width: 100%;
+    }
+}

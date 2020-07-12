@@ -5,6 +5,8 @@ import AppStyles from './App.module.scss';
 import Home from '../Home/Home';
 import Footer from '../Footer/Footer';
 import Contact from '../Contact/Contact';
+import Login from '../Credentials/Login/Login';
+import Signup from '../Credentials/Signup/Signup';
 
 const App : React.FC = () => (
   <div className={AppStyles.App}>
@@ -12,6 +14,8 @@ const App : React.FC = () => (
       <Switch>
         <Route exact path='/' component={Home} />
         <Route path='/contact' component={Contact} />
+        <Route path='/login' component={Login} />
+        <Route path='/signup' component={Signup} />
       </Switch>
     </div>
     <Footer />
