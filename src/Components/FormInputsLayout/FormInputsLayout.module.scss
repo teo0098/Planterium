@@ -1,13 +1,11 @@
-@import '../../scssSettings/colors';
-
-.Contact {
+.FormInputsLayout {
+    margin: 20px 0;
     display: grid;
     row-gap: 20px;
-    margin: 20px 10px;
 }
 
 @media (max-width: 400px) {
-    .Contact {
+    .FormInputsLayout {
         margin: 20px 0;
     }
 }

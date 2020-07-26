@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import { Field } from 'react-final-form';
 
 import inputStyles from '../../../tsStyleSettings/inputStyles';
-import { messageValidation } from '../../Contact/contactValidation';
+import { messageValidation } from '../../../inputsValidations';
 
 const Message : React.FC = () => (
     <Field name="message" component="input" validate={messageValidation}>

@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import { Field } from 'react-final-form';
 
 import inputStyles from '../../../tsStyleSettings/inputStyles';
-import { nameValidation } from '../../Contact/contactValidation';
+import { nameValidation } from '../../../inputsValidations';
 
 const Name : React.FC = () => (
     <Field name="name" component="input" validate={nameValidation}>

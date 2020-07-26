@@ -2,30 +2,31 @@ import React from 'react';
 import { Form } from 'react-final-form';
 import Button from '@material-ui/core/Button';
 import EmailIcon from '@material-ui/icons/Email';
+import createDecorator from 'final-form-focus';
 
 import Navigation from '../Navigation/Navigation';
-import { onSubmit } from './contactValidation';
-import ContactStyles from './Contact.module.scss';
+import { onSubmit } from './contactSubmit';
 import buttonStyles from '../../tsStyleSettings/buttonStyles';
 import Name from '../Inputs/Name/Name';
 import Email from '../Inputs/Email/Email';
 import Message from '../Inputs/Message/Message';
 import FormLayout from '../FormLayout/FormLayout';
+import FormInputsLayout from '../FormInputsLayout/FormInputsLayout';
 
 const Contact : React.FC = () => (
     <React.Fragment>
         <Navigation variant={2} />
         <FormLayout>
-            <Form onSubmit={onSubmit}>
+            <Form onSubmit={onSubmit} decorators={[createDecorator()]}>
                 {({ handleSubmit }) => 
                     <React.Fragment>
                         <EmailIcon style={{ fontSize: '40px' }} />
                         <form spellCheck="false" onSubmit={handleSubmit}>
-                            <div className={ContactStyles.Contact}>
+                            <FormInputsLayout>
                                 <Name />
                                 <Email />
                                 <Message />
-                            </div>
+                            </FormInputsLayout>
                             <Button style={buttonStyles} type="submit" variant="contained" color="primary">Send</Button>
                         </form>
                     </React.Fragment>
