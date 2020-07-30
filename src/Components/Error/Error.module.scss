@@ -1,0 +1,11 @@
+@import '../../scssSettings/colors';
+
+.Error {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+
+    &__msg {
+        box-shadow: 0 0 5px 0.5px $color4;
+    }
+}

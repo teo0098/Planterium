@@ -1,5 +1,5 @@
 import React from 'react';
-import SettingsIcon from '@material-ui/icons/Settings';
+import FlowerIcon from '@material-ui/icons/FilterVintage';
 import { motion } from 'framer-motion';
 
 import IntroStyles from './Intro.module.scss';
@@ -14,7 +14,7 @@ const Intro : React.FC = () => (
         className={IntroStyles.Intro__icon}
         animate={{ transform: 'rotate(360deg)' }}
         transition={{ loop: Infinity, ease: "linear", duration: 30 }}>
-            <SettingsIcon style={{ fontSize: '200px' }} />
+            <FlowerIcon style={{ fontSize: '200px' }} />
         </motion.div>
     </div>
 )

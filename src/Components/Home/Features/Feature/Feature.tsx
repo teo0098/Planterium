@@ -10,9 +10,9 @@ const Feature : React.FC<FeatureProps> = ({ index, icon, desc }) => {
         initial={{ opacity: 0, x: '20%' }}
         animate={{ opacity: 1, x: '0' }}
         transition={{ delay: index * 0.5, type: 'tween'}}
-        className={FeatureStyles.Features__section}>
+        className={FeatureStyles.Feature}>
             {icon}
-            <p className={FeatureStyles.Features__p}> {desc} </p>
+            <p className={FeatureStyles.Feature__p}> {desc} </p>
         </motion.section>
     )
 }

@@ -4,13 +4,13 @@
     margin: 0 0 0 auto;
     text-decoration: none;
     color: $color2;
-    border-radius: 5px;
+    border-radius: 4px;
     padding: 10px;
     background-color: $color4;
     transition: all 200ms ease-out;
-}
 
-.LoginTab:hover {
-    background-color: $color2;
-    color: $color4;
+    &:hover {
+        background-color: $color2;
+        color: $color4;
+    }
 }

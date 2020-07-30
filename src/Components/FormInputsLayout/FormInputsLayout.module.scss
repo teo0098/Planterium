@@ -2,10 +2,10 @@
     margin: 20px 0;
     display: grid;
     row-gap: 20px;
-}
 
-@media (max-width: 400px) {
-    .FormInputsLayout {
-        margin: 20px 0;
+    @media (max-width: 400px) {
+        & {
+            margin: 20px 0;
+        }
     }
 }

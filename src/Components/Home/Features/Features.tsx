@@ -3,12 +3,12 @@ import { AnimatePresence } from 'framer-motion';
 
 import FeaturesStyles from './Features.module.scss';
 import { features, FeatureType } from './feature';
-import useFeatures from '../../customHooks/useFeatures';
+import useScroll from '../../customHooks/useScroll';
 import Feature from './Feature/Feature';
 
 const Features : React.FC = () => {
 
-    const { ref, scrolled } = useFeatures();
+    const { ref, scrolled } = useScroll();
 
     return (
         <div ref={ref} className={FeaturesStyles.Features}>

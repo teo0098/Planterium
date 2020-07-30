@@ -7,6 +7,7 @@ import Footer from '../Footer/Footer';
 import Contact from '../Contact/Contact';
 import Login from '../Credentials/Login/Login';
 import Signup from '../Credentials/Signup/Signup';
+import Plants from '../Plants/Plants';
 
 const App : React.FC = () => (
   <div className={AppStyles.App}>
@@ -16,6 +17,7 @@ const App : React.FC = () => (
         <Route path='/contact' component={Contact} />
         <Route path='/login' component={Login} />
         <Route path='/signup' component={Signup} />
+        <Route path='/plants' component={Plants} />
       </Switch>
     </div>
     <Footer />
