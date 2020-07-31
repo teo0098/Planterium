@@ -1,0 +1,12 @@
+.PlantSectionInfo {
+    margin: 20px 0;
+
+    &__article {
+        line-height: 1.5;
+    }
+    
+    &__mark {
+        font-weight: bold;
+        background: transparent;
+    }
+}

@@ -1,8 +1,18 @@
 .Plants {
-    display: grid;
-    grid-template-columns: repeat(3, 25%);
     padding: 30px;
-    justify-content: center;
-    gap: 20px 50px;
-    align-items: flex-start;
+    width: 80%;
+    margin: 0 auto;
+
+    &__flowers {
+        display: grid;
+        justify-content: center;
+        gap: 30px 50px;
+        align-items: flex-start;
+    }
+
+    &__layout {
+        display: flex;
+        justify-content: flex-end;
+        padding-bottom: 20px;
+    }
 }

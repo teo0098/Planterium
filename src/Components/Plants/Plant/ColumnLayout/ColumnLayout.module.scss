@@ -1,0 +1,24 @@
+@import '../plantStyles';
+
+.Plant {
+    @include plant();
+    flex-direction: column;
+    cursor: pointer;
+
+    &__h3 {
+        padding: 20px 0 0 0;
+        text-align: center;
+    }
+
+    &__info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__div {
+        display: flex;
+        justify-content: center;
+        margin: 10px 0;
+    }
+}
