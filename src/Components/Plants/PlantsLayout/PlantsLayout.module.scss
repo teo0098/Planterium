@@ -13,12 +13,12 @@
     &__layout {
         display: flex;
         justify-content: flex-end;
-        padding-bottom: 20px;
+        padding: 20px 0;
     }
+}
 
-    &__more {
-        display: flex;
-        justify-content: center;
-        padding-bottom: 30px;
-    }
+.PlantsMore {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 30px;
 }

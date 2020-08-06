@@ -1,3 +1,3 @@
 export default interface PlantProps {
-    layout : string;
+    layout : string | null;
 }

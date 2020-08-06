@@ -3,34 +3,40 @@ import { useQuery } from '@apollo/client';
 
 import { PLANTS } from '../../graphqlQueries';
 
-export type PlantType = { name: string, desc : string, watering : number, light : string };
+export type PlantType = { name : string, desc : string, watering : number, light : string };
 
-type Function = () => {
+type Function = (name : string | string[] | null | undefined) => {
     skip : number, 
     setSkip : React.Dispatch<React.SetStateAction<number>>,
     quantity : number,
     plants : Array<PlantType>,
     error : any,
-    loading : boolean
+    loading : boolean,
+    setMore : React.Dispatch<React.SetStateAction<boolean>>,
+    setSearched : React.Dispatch<React.SetStateAction<boolean>>
 };
 
-export const usePlants : Function = () => {
+export const usePlants : Function = (name = "") => {
 
     const [skip, setSkip] = useState<number>(1);
     const [quantity, setQuantity] = useState<number>(0);
     const [plants, setPlants] = useState<Array<PlantType>>([]);
+    const [more, setMore] = useState<boolean>(false);
+    const [searched, setSearched] = useState<boolean>(false);
     const { loading, error, data } = useQuery(PLANTS, {
         variables: {
-            skip
+            skip,
+            name
         }
     });
 
     useEffect(() => {
         if (!loading && !error) {
-            setPlants(prevState => [...prevState, ...data.plants]);
+            if (more) setPlants((prevState : Array<PlantType>) => [...prevState, ...data.plants]);
+            if (searched || skip === 1) setPlants([...data.plants]);
             setQuantity(data.quantity);
         }
-    }, [loading, data, error]);
+    }, [loading, data, error, more, searched, skip]);
 
-    return { skip, setSkip, quantity, plants, error, loading }
+    return { skip, setSkip, quantity, plants, error, loading, setMore, setSearched }
 }

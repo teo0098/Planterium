@@ -1,13 +1,13 @@
 import { gql } from '@apollo/client';
 
 export const PLANTS = gql`
-    query GetPlants($skip : Int) {
-        plants(skip : $skip) {
+    query GetPlants($skip : Int, $name : String) {
+        plants(skip : $skip, name : $name) {
             name,
             desc,
             watering,
             light
         },
-        quantity
+        quantity(name : $name)
     }
 `;

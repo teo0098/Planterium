@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import Navigation from '../Navigation/Navigation';
 import Loading from '../Loading/Loading';
 import Error from '../Error/Error';
 import { usePlants } from '../customHooks/usePlants';
 import PlantsLayout from './PlantsLayout/PlantsLayout';
+import Navigation from '../Navigation/Navigation';
+import SearchEngine from './SearchEngine/SearchEngine';
 
 const Plants : React.FC = () => {
 
-    const { skip, setSkip, error, loading, quantity, plants } = usePlants();
+    const [plantName, setPlantName] = useState<string>('');
+    const { skip, setSkip, error, loading, quantity, plants, setMore, setSearched } = usePlants(plantName);
 
     return (
         <>
@@ -16,7 +18,9 @@ const Plants : React.FC = () => {
             {error ? <Error> Unable to retrieve plants... Please try again later. </Error> : null}
             {loading ? <Loading /> : null}
             {plants.length !== 0 ? 
-                <PlantsLayout skip={skip} setSkip={setSkip} loading={loading} quantity={quantity} plants={plants} />
+                <PlantsLayout setMore={setMore} skip={skip} setSkip={setSkip} loading={loading} quantity={quantity} plants={plants}>
+                    <SearchEngine setSearched={setSearched} setSkip={setSkip} setPlantName={setPlantName} />
+                </PlantsLayout>
                 : null}
         </>
     )
