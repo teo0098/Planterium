@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import inputStyles from '../../../tsStyleSettings/inputStyles';
 import SearchEngineProps from './searchEngineProps';
 
-const SearchEngine : React.FC<SearchEngineProps> = ({ setPlantName, setSkip, setSearched }) => (
+const SearchEngine : React.FC<SearchEngineProps> = ({ setPlantName, setSkip }) => (
     <div>
         <TextField 
         inputProps={{ maxLength: 30 }}
@@ -12,7 +12,6 @@ const SearchEngine : React.FC<SearchEngineProps> = ({ setPlantName, setSkip, set
             setSkip(1);
             setPlantName(e.target.value);
         }}
-        onBlur={() => setSearched(false)} 
         style={inputStyles} label="Search for plants..." />
     </div>
 )

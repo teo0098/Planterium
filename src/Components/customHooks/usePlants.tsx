@@ -12,8 +12,7 @@ type Function = (name : string | string[] | null | undefined) => {
     plants : Array<PlantType>,
     error : any,
     loading : boolean,
-    setMore : React.Dispatch<React.SetStateAction<boolean>>,
-    setSearched : React.Dispatch<React.SetStateAction<boolean>>
+    setMore : React.Dispatch<React.SetStateAction<boolean>>
 };
 
 export const usePlants : Function = (name = "") => {
@@ -22,7 +21,6 @@ export const usePlants : Function = (name = "") => {
     const [quantity, setQuantity] = useState<number>(0);
     const [plants, setPlants] = useState<Array<PlantType>>([]);
     const [more, setMore] = useState<boolean>(false);
-    const [searched, setSearched] = useState<boolean>(false);
     const { loading, error, data } = useQuery(PLANTS, {
         variables: {
             skip,
@@ -33,10 +31,10 @@ export const usePlants : Function = (name = "") => {
     useEffect(() => {
         if (!loading && !error) {
             if (more) setPlants((prevState : Array<PlantType>) => [...prevState, ...data.plants]);
-            if (searched || skip === 1) setPlants([...data.plants]);
+            if (skip === 1) setPlants([...data.plants]);
             setQuantity(data.quantity);
         }
-    }, [loading, data, error, more, searched, skip]);
+    }, [loading, data, error, more, skip]);
 
-    return { skip, setSkip, quantity, plants, error, loading, setMore, setSearched }
+    return { skip, setSkip, quantity, plants, error, loading, setMore }
 }
