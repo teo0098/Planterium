@@ -10,7 +10,7 @@ import SearchEngine from './SearchEngine/SearchEngine';
 const Plants : React.FC = () => {
 
     const [plantName, setPlantName] = useState<string>('');
-    const { skip, setSkip, error, loading, quantity, plants, setMore } = usePlants(plantName);
+    const { skip, setSkip, error, loading, quantity, plants } = usePlants(plantName.toLowerCase());
 
     return (
         <>
@@ -18,7 +18,7 @@ const Plants : React.FC = () => {
             {error ? <Error> Unable to retrieve plants... Please try again later. </Error> : null}
             {loading ? <Loading /> : null}
             {plants.length !== 0 ? 
-                <PlantsLayout setMore={setMore} skip={skip} setSkip={setSkip} loading={loading} quantity={quantity} plants={plants}>
+                <PlantsLayout skip={skip} setSkip={setSkip} loading={loading} quantity={quantity} plants={plants}>
                     <SearchEngine setSkip={setSkip} setPlantName={setPlantName} />
                 </PlantsLayout>
                 : null}

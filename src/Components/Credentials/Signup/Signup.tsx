@@ -4,7 +4,6 @@ import Button from '@material-ui/core/Button';
 import createDecorator from 'final-form-focus';
 
 import Credentials from '../Credentials';
-import Name from '../../Inputs/Name/Name';
 import Nickname from '../../Inputs/Nickname/Nickname';
 import Email from '../../Inputs/Email/Email';
 import Password from '../../Inputs/Password/Password';
@@ -26,7 +25,6 @@ const Signup : React.FC = () => {
                 {({ handleSubmit }) =>
                     <form onSubmit={handleSubmit}>
                         <FormInputsLayout>
-                            <Name />
                             <Nickname />
                             <Email />
                             <Password />

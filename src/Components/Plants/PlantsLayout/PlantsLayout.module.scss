@@ -8,12 +8,56 @@
         justify-content: center;
         gap: 30px 50px;
         align-items: flex-start;
+
+        &--columns {
+            grid-template-columns: repeat(3, 1fr);
+
+            @media (max-width: 1100px) {
+                & {
+                    grid-template-columns: 1fr 1fr;
+                }
+            }
+
+            @media (max-width: 900px) {
+                & {
+                    grid-template-columns: 1fr;
+                }
+            }
+        }
+
+        &--rows {
+            grid-template-columns: 1fr;
+        }
+
+        @media (max-width: 900px) {
+            & {
+                padding-top: 30px;
+            }
+        }
     }
 
     &__layout {
         display: flex;
         justify-content: flex-end;
         padding: 20px 0;
+
+        @media (max-width: 900px) {
+            & {
+                display: none;
+            }
+        }
+    }
+
+    @media (max-width: 1300px) {
+        & {
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 400px) {
+        & {
+            padding: 10px 10px 30px 10px;
+        }
     }
 }
 

@@ -11,9 +11,9 @@ import { PlantType } from '../../customHooks/usePlants';
 import PlantsLayoutProps from './plantsLayoutProps';
 import { color1, color4 } from '../../../tsStyleSettings/colors';
 
-const PlantsLayout : React.FC<PlantsLayoutProps> = ({ plants, skip, quantity, loading, setSkip, children, setMore }) => {
+const PlantsLayout : React.FC<PlantsLayoutProps> = ({ plants, skip, quantity, loading, setSkip, children }) => {
 
-    const [layout, setLayout] = useState<string | null>(localStorage.getItem('layout') === null ? 'columns' : localStorage.getItem('layout'));
+    const [layout, setLayout] = useState<string | null>(localStorage.getItem('layout') === null || window.screen.width <= 900 ? 'columns' : localStorage.getItem('layout'));
 
     const changeLayout = (newLayout : string) => {
         localStorage.setItem('layout', newLayout);
@@ -30,8 +30,8 @@ const PlantsLayout : React.FC<PlantsLayoutProps> = ({ plants, skip, quantity, lo
                     <ColumnsIcon style={{ fontSize: '30px', cursor: 'pointer', color: layout === 'columns' ? color1 : color4 }} 
                     onClick={() => changeLayout('columns')} />
                 </div>
-                <div style={{ gridTemplateColumns: layout === 'columns' ? 'repeat(3, 1fr)' : '1fr' }} 
-                    className={PlantsLayoutStyles.Plants__flowers}>
+                <div className={`${PlantsLayoutStyles.Plants__flowers} ${layout === 'columns' ? 
+                    PlantsLayoutStyles['Plants__flowers--columns'] : PlantsLayoutStyles['Plants__flowers--rows']}`}>
                     {plants.map((plant : PlantType) => (
                         <PlantContext.Provider key={plant.name} value={plant}>
                             <Plant layout={layout} />
@@ -41,10 +41,8 @@ const PlantsLayout : React.FC<PlantsLayoutProps> = ({ plants, skip, quantity, lo
             </div>
             {skip * 5 < quantity ?
                 <div className={PlantsLayoutStyles.PlantsMore}>
-                    <Button disabled={loading ? true : false} onClick={() => {
-                        setSkip(prevState => ++prevState);
-                        setMore(true);
-                    }} 
+                    <Button disabled={loading ? true : false} 
+                    onClick={() => setSkip(prevState => ++prevState)} 
                     style={buttonStyles} variant="contained" color="primary">
                         Show more plants
                     </Button>

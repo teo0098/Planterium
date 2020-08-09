@@ -7,6 +7,7 @@
     position: fixed;
     top: $navigationHeight;
     left: 0;
+    z-index: 990;
 
     @media (max-width: 700px) {
         & {

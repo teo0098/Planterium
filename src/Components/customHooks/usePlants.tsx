@@ -11,8 +11,7 @@ type Function = (name : string | string[] | null | undefined) => {
     quantity : number,
     plants : Array<PlantType>,
     error : any,
-    loading : boolean,
-    setMore : React.Dispatch<React.SetStateAction<boolean>>
+    loading : boolean
 };
 
 export const usePlants : Function = (name = "") => {
@@ -20,7 +19,6 @@ export const usePlants : Function = (name = "") => {
     const [skip, setSkip] = useState<number>(1);
     const [quantity, setQuantity] = useState<number>(0);
     const [plants, setPlants] = useState<Array<PlantType>>([]);
-    const [more, setMore] = useState<boolean>(false);
     const { loading, error, data } = useQuery(PLANTS, {
         variables: {
             skip,
@@ -30,11 +28,11 @@ export const usePlants : Function = (name = "") => {
 
     useEffect(() => {
         if (!loading && !error) {
-            if (more) setPlants((prevState : Array<PlantType>) => [...prevState, ...data.plants]);
+            setPlants((prevState : Array<PlantType>) => [...prevState, ...data.plants]);
             if (skip === 1) setPlants([...data.plants]);
             setQuantity(data.quantity);
         }
-    }, [loading, data, error, more, skip]);
+    }, [loading, data, error, skip]);
 
-    return { skip, setSkip, quantity, plants, error, loading, setMore }
+    return { skip, setSkip, quantity, plants, error, loading }
 }
