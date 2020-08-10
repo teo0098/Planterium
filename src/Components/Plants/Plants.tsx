@@ -17,7 +17,7 @@ const Plants : React.FC = () => {
             <Navigation variant={2} />
             {error ? <Error> Unable to retrieve plants... Please try again later. </Error> : null}
             {loading ? <Loading /> : null}
-            {plants.length !== 0 ? 
+            {!error ? 
                 <PlantsLayout skip={skip} setSkip={setSkip} loading={loading} quantity={quantity} plants={plants}>
                     <SearchEngine setSkip={setSkip} setPlantName={setPlantName} />
                 </PlantsLayout>

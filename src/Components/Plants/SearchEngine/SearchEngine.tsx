@@ -8,6 +8,7 @@ const SearchEngine : React.FC<SearchEngineProps> = ({ setPlantName, setSkip }) =
     <div>
         <TextField 
         inputProps={{ maxLength: 30 }}
+        spellCheck={false}
         onChange={e => {
             setSkip(1);
             setPlantName(e.target.value);
