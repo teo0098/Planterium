@@ -3,6 +3,7 @@ const expressGraphQL = require('express-graphql');
 const { GraphQLSchema } = require('graphql');
 const cors = require('cors');
 
+require('./dbconnection');
 const rootQuery = require('./graphql/rootQuery');
 
 const schema = new GraphQLSchema({
