@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import RowsIcon from '@material-ui/icons/Reorder';
 import ColumnsIcon from '@material-ui/icons/ViewWeek';
 import Button from '@material-ui/core/Button';
@@ -11,15 +11,11 @@ import buttonStyles from '../../../tsStyleSettings/buttonStyles';
 import { PlantType } from '../../customHooks/usePlants';
 import PlantsLayoutProps from './plantsLayoutProps';
 import { color1, color4 } from '../../../tsStyleSettings/colors';
+import usePlantsLayout from '../../customHooks/usePlantsLayout';
 
-const PlantsLayout : React.FC<PlantsLayoutProps> = ({ plants, skip, quantity, loading, setSkip, children }) => {
+const PlantsLayout : React.FC<PlantsLayoutProps> = ({ plants, skip, quantity, loading, setSkip, children, plantName }) => {
 
-    const [layout, setLayout] = useState<string | null>(localStorage.getItem('layout') === null || window.screen.width <= 900 ? 'columns' : localStorage.getItem('layout'));
-
-    const changeLayout = (newLayout : string) => {
-        localStorage.setItem('layout', newLayout);
-        setLayout(newLayout);
-    }
+    const [layout, changeLayout] = usePlantsLayout();
 
     return (
         <>
@@ -43,10 +39,12 @@ const PlantsLayout : React.FC<PlantsLayoutProps> = ({ plants, skip, quantity, lo
                         </div>
                     </>
                     :
-                    <div className={PlantsLayoutStyles.Plants__notFound}>
-                        <NotFound style={{ fontSize: '80px' }} />
-                        <h3 className={PlantsLayoutStyles.Plants__h3}> No results... </h3>
-                    </div>
+                    plantName ?
+                        <div className={PlantsLayoutStyles.Plants__notFound}>
+                            <NotFound style={{ fontSize: '80px' }} />
+                            <h3 className={PlantsLayoutStyles.Plants__h3}> No results... </h3>
+                        </div>
+                        : null
                 }
             </div>
             {skip * 5 < quantity ?

@@ -6,4 +6,5 @@ export default interface PlantsLayoutProps {
     quantity : number,
     plants : Array<PlantType>;
     loading : boolean;
+    plantName : string | undefined;
 }

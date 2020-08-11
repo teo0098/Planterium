@@ -5,9 +5,11 @@ const cors = require('cors');
 
 require('./dbconnection');
 const rootQuery = require('./graphql/rootQuery');
+const mutation = require('./graphql/mutation');
 
 const schema = new GraphQLSchema({
-    query: rootQuery
+    query: rootQuery,
+    mutation
 });
 
 const app = express();

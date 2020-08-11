@@ -1,12 +1,12 @@
 import { useRef } from 'react';
 
-type Function = (setMenu : () => void) => { menuRef : any, hideMenu : (e : any) => void | null };
+type Function = (setMenuOn : React.Dispatch<React.SetStateAction<boolean>>) => { menuRef : any, hideMenu : (e : any) => void | null };
 
-const useMenu : Function = (setMenu : () => void) => {
+const useMenu : Function = setMenuOn => {
 
     const menuRef = useRef<HTMLDivElement | null>(null);
 
-    const hideMenu = (e : any) => e.target !== menuRef.current ? setMenu() : null;
+    const hideMenu = (e : any) => e.target !== menuRef.current ? setMenuOn(false) : null;
 
     return { menuRef, hideMenu }
 }

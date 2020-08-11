@@ -3,7 +3,6 @@ const { Schema, model } = require('mongoose');
 const plantSchema = new Schema({
     name: {
         type: String,
-        unique: true,
         required: true,
         trim: true
     },

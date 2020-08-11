@@ -1,4 +1,4 @@
 export default interface HamburgerProps {
     menuOn : boolean;
-    setMenu ?: () => void;
+    setMenuOn : React.Dispatch<React.SetStateAction<boolean>>;
 }

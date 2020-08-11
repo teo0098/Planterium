@@ -9,9 +9,9 @@ import { Link } from 'react-router-dom';
 import Hamburger from '../Hamburger/Hamburger';
 import useMenu from '../../customHooks/useMenu';
 
-const Menu : React.FC<MenuProps> = ({ menuOn, setMenu }) => {
+const Menu : React.FC<MenuProps> = ({ menuOn, setMenuOn }) => {
 
-    const { menuRef, hideMenu } = useMenu(setMenu);
+    const { menuRef, hideMenu } = useMenu(setMenuOn);
 
     return (
         <AnimatePresence>
@@ -29,7 +29,7 @@ const Menu : React.FC<MenuProps> = ({ menuOn, setMenu }) => {
                         <motion.div 
                         variants={childVariants2}
                         className={MenuStyles.Menu__hamburger}>
-                            <Hamburger menuOn={menuOn} />
+                            <Hamburger setMenuOn={setMenuOn} menuOn={menuOn} />
                         </motion.div>
                         <motion.div
                         style={{ pointerEvents: 'none' }}

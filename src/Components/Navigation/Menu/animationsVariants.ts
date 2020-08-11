@@ -18,9 +18,7 @@ export const childVariants = {
         x: '-100%',
         transition: {
             type: 'tween',
-            duration: 0.5,
             ease: 'easeOut',
-            when: 'afterChildren',
         }
     },
     visible: {
