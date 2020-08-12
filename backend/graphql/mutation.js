@@ -22,6 +22,7 @@ const mutation = new GraphQLObjectType({
                     return await new User(args).save();
                 }
                 catch (e) {
+                    if (e.message === 'NICKNAME EXISTS' || e.message === 'EMAIL EXISTS') throw new Error(e.message);
                     throw new Error();
                 }
             }

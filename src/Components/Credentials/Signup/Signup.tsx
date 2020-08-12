@@ -11,12 +11,12 @@ import RepeatPassword from '../../Inputs/RepeatPassword/RepeatPassword';
 import buttonStyles from '../../../tsStyleSettings/buttonStyles';
 import FormInputsLayout from '../../FormInputsLayout/FormInputsLayout';
 import { rpasswordValidation } from '../../../inputsValidations';
-
-const onSubmit = (values : any) => {
-    console.log(values);
-}
+import useSignup from '../../customHooks/useSignup';
 
 const Signup : React.FC = () => {
+
+    const { renderStatus, onSubmit } = useSignup();
+
     return (
         <Credentials>
             <Form onSubmit={onSubmit}
@@ -29,6 +29,7 @@ const Signup : React.FC = () => {
                             <Email />
                             <Password />
                             <RepeatPassword />
+                            {renderStatus()}
                         </FormInputsLayout>
                         <Button style={buttonStyles} type="submit" variant="contained" color="primary">Sign up</Button>
                     </form>
