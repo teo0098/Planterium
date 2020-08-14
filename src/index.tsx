@@ -9,6 +9,7 @@ import './index.scss';
 
 const client = new ApolloClient({
   uri: '/graphql',
+  credentials: 'include',
   cache: new InMemoryCache()
 });
 

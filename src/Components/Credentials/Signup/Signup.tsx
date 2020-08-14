@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Form } from 'react-final-form';
 import Button from '@material-ui/core/Button';
 import createDecorator from 'final-form-focus';
@@ -15,12 +15,13 @@ import useSignup from '../../customHooks/useSignup';
 
 const Signup : React.FC = () => {
 
-    const { renderStatus, onSubmit } = useSignup();
+    const { renderStatus, handleOnSubmit } = useSignup();
+    const decorator = useMemo(() => createDecorator(), []);
 
     return (
         <Credentials>
-            <Form onSubmit={onSubmit}
-            decorators={[createDecorator()]}
+            <Form onSubmit={handleOnSubmit}
+            decorators={[decorator]}
             validate={rpasswordValidation}>
                 {({ handleSubmit }) =>
                     <form onSubmit={handleSubmit}>

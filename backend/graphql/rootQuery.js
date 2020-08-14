@@ -1,7 +1,9 @@
-const { GraphQLObjectType, GraphQLList, GraphQLInt, GraphQLString, GraphQLNonNull } = require('graphql');
+const { GraphQLObjectType, GraphQLList, GraphQLInt, GraphQLString, GraphQLNonNull, GraphQLBoolean } = require('graphql');
 
 const PlantType = require('./types/plantType');
-const Plant = require('../models/plant');
+const plantsResolver = require('./resolvers/plantsResolver');
+const quantityResolver = require('./resolvers/quantityResolver');
+const isAuthResolver = require('./resolvers/isAuthResolver');
 
 const rootQuery = new GraphQLObjectType({
     name: 'Root',
@@ -12,34 +14,18 @@ const rootQuery = new GraphQLObjectType({
                 skip: { type: new GraphQLNonNull(GraphQLInt) },
                 name : { type: GraphQLString }
             },
-            resolve: async (parentValue, { skip, name }) => {
-                try {
-                    if (name === "" || !name) {
-                        return await Plant.find({}).skip((skip * 5) - 5).limit(5);
-                    }
-                    return await Plant.find({ 'name': { '$regex': `${name}`, '$options': 'i' } }).skip((skip * 5) - 5).limit(5);
-                }
-                catch (e) {
-                    throw new Error();
-                }
-            }
+            resolve: plantsResolver
         },
         quantity: {
             type: GraphQLInt,
             args: {
                 name : { type: GraphQLString }
             },
-            resolve: async (parentValue, { name }) => {
-                try {
-                    if (name === "" || !name) {
-                        return await Plant.estimatedDocumentCount();
-                    }
-                    return await Plant.find({ 'name': { '$regex': `${name}`, '$options': 'i' } }).countDocuments();
-                }
-                catch (e) {
-                    throw new Error();
-                }
-            }
+            resolve: quantityResolver
+        },
+        isAuth: {
+            type: GraphQLBoolean,
+            resolve: isAuthResolver
         }
     })
 });

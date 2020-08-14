@@ -2,15 +2,18 @@ import React from 'react';
 import { useMutation } from '@apollo/client';
 import Alert from '@material-ui/lab/Alert/Alert';
 
-import { CREATE_USER } from '../../graphqlQueries';
+import { CREATE_USER } from '../../graphqlMutations';
 import Loading from '../Loading/Loading';
 import Modal from '../Modal/Modal';
+import ERRORS from '../../credentialsErrors';
 
-const useSignup = () => {
+type Function = () => { handleOnSubmit: (values: any) => any, renderStatus: () => JSX.Element | undefined };
+
+const useSignup : Function = () => {
     
     const [createUser, { loading, error, data }] = useMutation(CREATE_USER);
 
-    const onSubmit = (values : any) => createUser({
+    const handleOnSubmit = (values : any) => createUser({
         variables: {
             nickname: values.nickname,
             email: values.email,
@@ -21,14 +24,14 @@ const useSignup = () => {
     const renderStatus = () => {
         if (loading) return <Loading />;
         if (error) {
-            if (error.message === 'NICKNAME EXISTS') {
+            if (error.message === ERRORS.NICKNAME_EXISTS) {
                 return (
                     <Modal>
                         <Alert severity='error'> This nickname already exists in the database. </Alert>
                     </Modal>
                 )
             }
-            else if (error.message === 'EMAIL EXISTS') {
+            else if (error.message === ERRORS.EMAIL_EXISTS) {
                 return (
                     <Modal>
                         <Alert severity='error'> This email already exists in the database. </Alert>
@@ -52,7 +55,7 @@ const useSignup = () => {
         }
     }
 
-    return { renderStatus, onSubmit };
+    return { renderStatus, handleOnSubmit };
 }
 
 export default useSignup;

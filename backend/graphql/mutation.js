@@ -1,7 +1,8 @@
-const { GraphQLObjectType, GraphQLNonNull, GraphQLString } = require('graphql');
+const { GraphQLObjectType, GraphQLNonNull, GraphQLString, GraphQLBoolean } = require('graphql');
 
 const UserType = require('./types/userType');
-const User = require('../models/user');
+const addUserResolver = require('./resolvers/addUserResolver');
+const loginResolver = require('./resolvers/loginResolver');
 
 const mutation = new GraphQLObjectType({
     name: 'Mutation',
@@ -13,19 +14,15 @@ const mutation = new GraphQLObjectType({
                 email: { type: new GraphQLNonNull(GraphQLString) },
                 password: { type: new GraphQLNonNull(GraphQLString) }
             },
-            resolve: async (parentValue, args) => {
-                try {
-                    const checkNickname = await User.findOne({ nickname: args.nickname });
-                    const checkEmail = await User.findOne({ email: args.email });
-                    if (checkNickname) throw new Error('NICKNAME EXISTS');
-                    if (checkEmail) throw new Error('EMAIL EXISTS');
-                    return await new User(args).save();
-                }
-                catch (e) {
-                    if (e.message === 'NICKNAME EXISTS' || e.message === 'EMAIL EXISTS') throw new Error(e.message);
-                    throw new Error();
-                }
-            }
+            resolve: addUserResolver
+        },
+        login: {
+            type: GraphQLBoolean,
+            args: {
+                login: { type: new GraphQLNonNull(GraphQLString) },
+                password: { type: new GraphQLNonNull(GraphQLString) }
+            },
+            resolve: loginResolver
         }
     })
 });
