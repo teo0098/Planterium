@@ -6,7 +6,7 @@ import { Redirect } from 'react-router-dom';
 import { LOGIN } from '../../graphqlMutations';
 import Loading from '../Loading/Loading';
 import Modal from '../Modal/Modal';
-import ERRORS from '../../credentialsErrors';
+import ERRORS from '../../ERRORS';
 
 type Function = () => { handleOnSubmit: (values: any) => any, renderStatus: () => JSX.Element | undefined };
 
@@ -34,7 +34,7 @@ const useLogin : Function = () => {
             else {
                 return (
                     <Modal>
-                        <Alert severity='error'> Unable to log you in to your account... Please try again later. </Alert>
+                        <Alert severity='error'> Unable to log you in to your account. Please try again later. </Alert>
                     </Modal>
                 )
             }

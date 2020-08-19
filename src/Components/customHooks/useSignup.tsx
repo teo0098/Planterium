@@ -5,7 +5,7 @@ import Alert from '@material-ui/lab/Alert/Alert';
 import { CREATE_USER } from '../../graphqlMutations';
 import Loading from '../Loading/Loading';
 import Modal from '../Modal/Modal';
-import ERRORS from '../../credentialsErrors';
+import ERRORS from '../../ERRORS';
 
 type Function = () => { handleOnSubmit: (values: any) => any, renderStatus: () => JSX.Element | undefined };
 
@@ -41,7 +41,7 @@ const useSignup : Function = () => {
             else {
                 return (
                     <Modal>
-                        <Alert severity='error'> Unable to create your account... Please try again later. </Alert>
+                        <Alert severity='error'> Unable to create your account. Please try again later. </Alert>
                     </Modal>
                 )
             }

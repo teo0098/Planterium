@@ -1,21 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import cookies from 'js-cookie';
 import ArrowDownIcon from '@material-ui/icons/ArrowDropDown';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import LoginTabStyles from './LoginTab.module.scss';
+import useLoginTab from '../../customHooks/useLoginTab';
 
 const LoginTab : React.FC = () => {
 
-    const [menu, setMenu] = useState<boolean>(false);
-    const ref : any = useRef<null | HTMLDivElement>(null);
-
-    useEffect(() => {
-        const hideMenu = (e : any) => menu && !ref.current.contains(e.target) ? setMenu(false) : null;
-        window.addEventListener('click', hideMenu);
-        return () => window.removeEventListener('click', hideMenu);
-    }, [menu]);
+    const { menu, setMenu, ref, handleLogout } = useLoginTab();
 
     return (
         cookies.get('user') === undefined ?
@@ -30,7 +24,7 @@ const LoginTab : React.FC = () => {
                     initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                     transition={{ duration: 0.2 }}>
                         <Link className={LoginTabStyles.LoginTab__item} to='/account'> Account </Link>
-                        <span className={LoginTabStyles.LoginTab__item}> Log out </span>
+                        <span onClick={handleLogout} className={LoginTabStyles.LoginTab__item}> Log out </span>
                     </motion.nav>
                 )}
             </AnimatePresence>

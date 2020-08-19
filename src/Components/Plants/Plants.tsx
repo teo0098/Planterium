@@ -6,11 +6,12 @@ import { usePlants } from '../customHooks/usePlants';
 import PlantsLayout from './PlantsLayout/PlantsLayout';
 import Navigation from '../Navigation/Navigation';
 import SearchEngine from './SearchEngine/SearchEngine';
+import PlantsProps from './plantsProps';
 
-const Plants : React.FC = () => {
+const Plants : React.FC<PlantsProps> = ({ query, cache }) => {
 
     const [plantName, setPlantName] = useState<string>('');
-    const { skip, setSkip, error, loading, quantity, plants } = usePlants(plantName.toLowerCase());
+    const { skip, setSkip, error, loading, quantity, plants } = usePlants(query, cache, plantName.toLowerCase());
 
     return (
         <>

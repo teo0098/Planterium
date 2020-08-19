@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 
-import { PLANTS } from '../../graphqlQueries';
-
 export type PlantType = { name : string, desc : string, watering : number, light : string };
 
-type Function = (name : string | string[] | null | undefined) => {
+type Function = (query : any, cache : boolean | undefined, name : string | string[] | null | undefined) => {
     skip : number, 
     setSkip : React.Dispatch<React.SetStateAction<number>>,
     quantity : number,
@@ -14,16 +12,17 @@ type Function = (name : string | string[] | null | undefined) => {
     loading : boolean
 };
 
-export const usePlants : Function = (name = "") => {
+export const usePlants : Function = (query, cache, name = "") => {
 
     const [skip, setSkip] = useState<number>(1);
     const [quantity, setQuantity] = useState<number>(0);
     const [plants, setPlants] = useState<Array<PlantType>>([]);
-    const { loading, error, data } = useQuery(PLANTS, {
+    const { loading, error, data } = useQuery(query, {
         variables: {
             skip,
             name
-        }
+        },
+        fetchPolicy: !cache ? 'no-cache' : 'cache-first'
     });
 
     useEffect(() => {

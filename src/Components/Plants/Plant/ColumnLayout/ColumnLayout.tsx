@@ -9,11 +9,13 @@ import buttonStyles from '../../../../tsStyleSettings/buttonStyles';
 import PlantContext from '../../../../context/plantContext';
 import PlantFlowerIcon from '../PlantFlowerIcon/PlantFlowerIcon';
 import PlantSectionInfo from '../PlantSectionInfo/PlantSectionInfo';
+import useAddPlant from '../../../customHooks/useAddPlant';
 
 const ColumnLayout : React.FC = () => {
 
     const [wrapDown, setWrapDown] = useState<boolean>(false);
     const { name, desc, watering, light } = useContext(PlantContext);
+    const { handleAddPlant, renderStatus } = useAddPlant(name, desc, watering, light);
 
     return (
         <section className={ColumnLayoutStyles.Plant} onClick={() => setWrapDown(!wrapDown)}>  
@@ -32,8 +34,9 @@ const ColumnLayout : React.FC = () => {
                         <PlantSectionInfo info="Description"> {desc} </PlantSectionInfo>
                         <PlantSectionInfo info="Watering"> Per {watering}h </PlantSectionInfo>
                         <PlantSectionInfo info="Light"> {light}  </PlantSectionInfo>
+                        {renderStatus()}
                         <div className={ColumnLayoutStyles.Plant__div}>
-                            <Button style={buttonStyles} variant="contained" color="primary">Add to my garden</Button>
+                            <Button onClick={handleAddPlant} style={buttonStyles} variant="contained" color="primary">Add to my garden</Button>
                         </div>
                     </motion.div>
                 )}

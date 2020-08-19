@@ -13,19 +13,19 @@ const schema = new GraphQLSchema({
     mutation
 });
 
-const app = express();
+const server = express();
 
-app.use(cookieParser());
+server.use(cookieParser());
 
-app.use(cors({
+server.use(cors({
     credentials: true,
     origin: 'http://localhost:3000'
 }));
 
-app.use('/graphql', expressGraphQL((req, res) => ({
+server.use('/graphql', expressGraphQL((req, res) => ({
     schema,
     graphiql: process.env.NODE_ENV !== 'production' ? true : false,
     context: { req, res }
 })));
 
-app.listen(process.env.PORT || 5000, () => console.log('Server is running...'));
+server.listen(process.env.PORT || 5000, () => console.log('Server is running...'));

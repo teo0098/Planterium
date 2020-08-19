@@ -1,11 +1,12 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 
-import AccountStyles from './Account.module.scss';
 import Navigation from '../Navigation/Navigation';
 import { IS_AUTH } from '../../graphqlQueries';
 import Loading from '../Loading/Loading';
 import Error from '../Error/Error';
+import Plants from '../Plants/Plants';
+import { PLANTS } from '../../graphqlQueries';
 
 const Account : React.FC = () => {
 
@@ -13,9 +14,10 @@ const Account : React.FC = () => {
 
     return (
         <>
-            <Navigation variant={2} />
+            {loading || error || (data && !data.isAuth) ? <Navigation variant={2} /> : null}
             {loading ? <Loading /> : null}
-            {(!loading && data.isAuth === false) || error ? <Error> Unauthorized access. Please log in. </Error> : null}
+            {!loading && (!data.isAuth || error) ? <Error> Unauthorized access. Please log in. </Error> : null}
+            {!loading && data && data.isAuth ? <Plants query={PLANTS} /> : null}
         </>
     )
 }
