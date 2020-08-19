@@ -1,7 +1,7 @@
 const { compare } = require('bcrypt');
 
 const User = require('../../models/user');
-const generateTokens = require('../../generateTokens');
+const generateTokens = require('../../middlewares/generateTokens');
 const { WRONG_CREDENTIALS } = require('../../ERRORS');
 
 const loginResolver = async (_, { login, password }, { res }) => {

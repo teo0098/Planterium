@@ -1,6 +1,6 @@
 const { verify } = require('jsonwebtoken');
 
-const User = require('./models/user');
+const User = require('../models/user');
 
 const isAuth = async (cookies) => {
     let authenticated = true, user;

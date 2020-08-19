@@ -1,7 +1,7 @@
 const User = require('../../models/user');
 const { PLANT_EXISTS, UNAUTHORIZED } = require('../../ERRORS');
-const isAuth = require('../../isAuth');
-const generateTokens = require('../../generateTokens');
+const isAuth = require('../../middlewares/isAuth');
+const generateTokens = require('../../middlewares/generateTokens');
 
 const addUserResolver = async (_, args, { req: { cookies }, res }) => {
     try {

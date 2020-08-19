@@ -17,3 +17,9 @@ export const ADD_PLANT = gql`
         addPlant(name: $name, desc: $desc, watering: $watering, light: $light)
     }
 `;
+
+export const LOGOUT = gql`
+    mutation Logout {
+        logout
+    }
+`;

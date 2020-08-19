@@ -8,7 +8,7 @@ import Loading from '../Loading/Loading';
 import Modal from '../Modal/Modal';
 import ERRORS from '../../ERRORS';
 
-type Function = () => { handleOnSubmit: (values: any) => any, renderStatus: () => JSX.Element | undefined };
+type Function = () => { handleOnSubmit : (values: any) => any, renderStatus : () => JSX.Element | undefined };
 
 const useLogin : Function = () => {
     

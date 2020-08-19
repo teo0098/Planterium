@@ -3,6 +3,7 @@ const { GraphQLObjectType, GraphQLNonNull, GraphQLString, GraphQLBoolean, GraphQ
 const addUserResolver = require('./resolvers/addUserResolver');
 const loginResolver = require('./resolvers/loginResolver');
 const addPlantResolver = require('./resolvers/addPlantResolver');
+const logoutResolver = require('./resolvers/logoutResolver');
 
 const mutation = new GraphQLObjectType({
     name: 'Mutation',
@@ -33,6 +34,10 @@ const mutation = new GraphQLObjectType({
                 light: { type: new GraphQLNonNull(GraphQLString) }
             },
             resolve: addPlantResolver
+        },
+        logout: {
+            type: GraphQLBoolean,
+            resolve: logoutResolver
         }
     })
 });
