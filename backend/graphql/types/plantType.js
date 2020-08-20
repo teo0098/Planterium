@@ -6,7 +6,8 @@ const PlantType = new GraphQLObjectType({
         name: { type: new GraphQLNonNull(GraphQLString) },
         desc: { type: new GraphQLNonNull(GraphQLString) },
         watering: { type: new GraphQLNonNull(GraphQLInt) },
-        light: { type: new GraphQLNonNull(GraphQLString) }
+        light: { type: new GraphQLNonNull(GraphQLString) },
+        watered: { type: GraphQLString }
     })
 });
 

@@ -1,26 +1,32 @@
 import { useState, useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 
+import { PLANTS } from '../../graphqlQueries';
+
 export type PlantType = { name : string, desc : string, watering : number, light : string };
 
-type Function = (query : any, cache : boolean | undefined, name : string | string[] | null | undefined) => {
+type Function = (cache : boolean | undefined) => {
     skip : number, 
     setSkip : React.Dispatch<React.SetStateAction<number>>,
     quantity : number,
     plants : Array<PlantType>,
     error : any,
-    loading : boolean
+    loading : boolean,
+    plantName : string,
+    setPlantName : React.Dispatch<React.SetStateAction<string>>
 };
 
-export const usePlants : Function = (query, cache, name = "") => {
+export const usePlants : Function = (cache) => {
 
     const [skip, setSkip] = useState<number>(1);
     const [quantity, setQuantity] = useState<number>(0);
     const [plants, setPlants] = useState<Array<PlantType>>([]);
-    const { loading, error, data } = useQuery(query, {
+    const [plantName, setPlantName] = useState<string>('');
+    const { loading, error, data } = useQuery(PLANTS, {
         variables: {
             skip,
-            name
+            name: plantName.toLowerCase(),
+            user: !cache ? 'user' : ''
         },
         fetchPolicy: !cache ? 'no-cache' : 'cache-first'
     });
@@ -33,5 +39,5 @@ export const usePlants : Function = (query, cache, name = "") => {
         }
     }, [loading, data, error, skip]);
 
-    return { skip, setSkip, quantity, plants, error, loading }
+    return { skip, setSkip, quantity, plants, error, loading, plantName, setPlantName }
 }

@@ -5,7 +5,6 @@ import { LOGOUT } from '../../graphqlMutations';
 import Loading from '../Loading/Loading';
 import { Redirect } from 'react-router-dom';
 
-
 type Function = () => { 
     menu : boolean, 
     setMenu : React.Dispatch<React.SetStateAction<boolean>>, 
@@ -18,7 +17,7 @@ const useLoginTab : Function = () => {
 
     const [menu, setMenu] = useState<boolean>(false);
     const ref : any = useRef<null | HTMLDivElement>(null);
-    const [logout, { loading, error, data }] = useMutation(LOGOUT);
+    const [logout, { loading, data }] = useMutation(LOGOUT);
 
     useEffect(() => {
         const hideMenu = (e : any) => menu && !ref.current.contains(e.target) ? setMenu(false) : null;
@@ -28,7 +27,7 @@ const useLoginTab : Function = () => {
 
     const renderStatus = () => {
         if (loading) return <Loading />;
-        else if (!loading && data) return <Redirect to='/login' />;
+        else if (data) return <Redirect to='/login' />;
     }
     
     return { menu, setMenu, ref, logout, renderStatus };

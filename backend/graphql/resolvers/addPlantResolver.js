@@ -11,7 +11,7 @@ const addUserResolver = async (_, args, { req: { cookies }, res }) => {
         if (plantExists) throw new Error(PLANT_EXISTS);
         const newPlant = {
             ...args,
-            watered: Date.now()
+            watered: Date.now().toString()
         }
         user.garden.push(newPlant);
         await User.findOneAndUpdate({ nickname: user.nickname }, { garden: user.garden }, { new: true, useFindAndModify: false });

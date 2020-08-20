@@ -1,11 +1,22 @@
 const Plant = require('../../models/plant');
+const isAuth = require('../../middlewares/isAuth');
 
-const plantsResolver = async (_, { skip, name }) => {
+const plantsResolver = async (_, args, { req: { cookies } }) => {
     try {
-        if (name === "" || !name) {
-            return await Plant.find({}).skip((skip * 5) - 5).limit(5);
+        if (args.user === "" || !args.user) {
+            if (args.name === "" || !args.name) {
+                return await Plant.find({}).skip((args.skip * 5) - 5).limit(5);
+            }
+            return await Plant.find({ 'name': { '$regex': `${args.name}`, '$options': 'i' } }).skip((args.skip * 5) - 5).limit(5);
         }
-        return await Plant.find({ 'name': { '$regex': `${name}`, '$options': 'i' } }).skip((skip * 5) - 5).limit(5);
+        else {
+            const user = await isAuth(cookies);
+            if (!user) throw new Error();
+            if (args.name === "" || !args.name) {
+                return user.garden.slice((args.skip * 5) - 5, args.skip * 5);
+            }
+            return user.garden.filter(({ name }) => name.toLowerCase().includes(args.name)).slice((args.skip * 5) - 5, args.skip * 5);
+        }
     }
     catch {
         throw new Error();

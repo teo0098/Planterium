@@ -9,7 +9,6 @@ import Login from '../Credentials/Login/Login';
 import Signup from '../Credentials/Signup/Signup';
 import Plants from '../Plants/Plants';
 import Account from '../Account/Account';
-import { PLANTS } from '../../graphqlQueries';
 
 const App : React.FC = () => (
   <div className={AppStyles.App}>
@@ -19,7 +18,7 @@ const App : React.FC = () => (
         <Route path='/contact' component={Contact} />
         <Route path='/login' component={Login} />
         <Route path='/signup' component={Signup} />
-        <Route path='/plants' render={props => <Plants {...props} query={PLANTS} cache />} />
+        <Route path='/plants' render={props => <Plants {...props} cache />} />
         <Route path='/account' component={Account} />
       </Switch>
     </div>

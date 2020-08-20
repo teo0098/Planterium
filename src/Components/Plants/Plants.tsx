@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import Loading from '../Loading/Loading';
 import Error from '../Error/Error';
@@ -8,10 +8,9 @@ import Navigation from '../Navigation/Navigation';
 import SearchEngine from './SearchEngine/SearchEngine';
 import PlantsProps from './plantsProps';
 
-const Plants : React.FC<PlantsProps> = ({ query, cache }) => {
+const Plants : React.FC<PlantsProps> = ({ cache }) => {
 
-    const [plantName, setPlantName] = useState<string>('');
-    const { skip, setSkip, error, loading, quantity, plants } = usePlants(query, cache, plantName.toLowerCase());
+    const { skip, setSkip, error, loading, quantity, plants, plantName, setPlantName } = usePlants(cache);
 
     return (
         <>
