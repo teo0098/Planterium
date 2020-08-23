@@ -25,7 +25,7 @@ const LoginTab : React.FC = () => {
                             <motion.nav className={LoginTabStyles.LoginTab__nav}
                             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                             transition={{ duration: 0.2 }}>
-                                <Link className={LoginTabStyles.LoginTab__item} to='/account'> Account </Link>
+                                <Link className={LoginTabStyles.LoginTab__item} to='/garden'> My garden </Link>
                                 <span onClick={logout} className={LoginTabStyles.LoginTab__item}> Log out </span>
                             </motion.nav>
                         )}

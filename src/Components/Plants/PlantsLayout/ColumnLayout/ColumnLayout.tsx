@@ -1,21 +1,17 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import ArrowDownIcon from '@material-ui/icons/ArrowDropDownRounded';
 import InfoIcon from '@material-ui/icons/InfoOutlined';
 import { motion, AnimatePresence } from 'framer-motion';
-import Button from '@material-ui/core/Button';
 
 import ColumnLayoutStyles from './ColumnLayout.module.scss';
-import buttonStyles from '../../../../tsStyleSettings/buttonStyles';
-import PlantContext from '../../../../context/plantContext';
 import PlantFlowerIcon from '../PlantFlowerIcon/PlantFlowerIcon';
-import PlantSectionInfo from '../PlantSectionInfo/PlantSectionInfo';
 import useAddPlant from '../../../customHooks/useAddPlant';
+import PlantProps from '../plantProps';
 
-const ColumnLayout : React.FC = () => {
+const ColumnLayout : React.FC<PlantProps> = ({ plant: { name, desc, watering, light, watered, irrigation } }) => {
 
     const [wrapDown, setWrapDown] = useState<boolean>(false);
-    const { name, desc, watering, light } = useContext(PlantContext);
-    const { handleAddPlant, renderStatus } = useAddPlant(name, desc, watering, light);
+    const { renderStatus, renderButton, renderInfo } = useAddPlant(name, desc, watering, light, watered, irrigation);
 
     return (
         <section className={ColumnLayoutStyles.Plant} onClick={() => setWrapDown(!wrapDown)}>  
@@ -31,12 +27,10 @@ const ColumnLayout : React.FC = () => {
                     initial={{ height: 0, overflow: 'hidden' }}
                     animate={{ height: 'auto' }}
                     exit={{ height: 0 }}>
-                        <PlantSectionInfo info="Description"> {desc} </PlantSectionInfo>
-                        <PlantSectionInfo info="Watering"> Per {watering}h </PlantSectionInfo>
-                        <PlantSectionInfo info="Light"> {light}  </PlantSectionInfo>
+                        {renderInfo()}
                         {renderStatus()}
                         <div className={ColumnLayoutStyles.Plant__div}>
-                            <Button onClick={handleAddPlant} style={buttonStyles} variant="contained" color="primary">Add to my garden</Button>
+                            {renderButton()}
                         </div>
                     </motion.div>
                 )}

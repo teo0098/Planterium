@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/client';
 
 import { PLANTS } from '../../graphqlQueries';
 
-export type PlantType = { name : string, desc : string, watering : number, light : string };
+export type PlantType = { name : string, desc : string, watering : number, light : string, watered : string | null, irrigation : string | null };
 
 type Function = (cache : boolean | undefined) => {
     skip : number, 

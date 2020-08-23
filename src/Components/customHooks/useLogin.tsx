@@ -40,7 +40,7 @@ const useLogin : Function = () => {
             }
         }
         if (data) {
-            return <Redirect push to='/account' />
+            return <Redirect push to='/garden' />
         }
     }
 

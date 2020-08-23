@@ -7,7 +7,8 @@ const PlantType = new GraphQLObjectType({
         desc: { type: new GraphQLNonNull(GraphQLString) },
         watering: { type: new GraphQLNonNull(GraphQLInt) },
         light: { type: new GraphQLNonNull(GraphQLString) },
-        watered: { type: GraphQLString }
+        watered: { type: GraphQLString },
+        irrigation: { type: GraphQLString }
     })
 });
 

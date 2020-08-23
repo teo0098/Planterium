@@ -1,21 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import RowsIcon from '@material-ui/icons/Reorder';
 import ColumnsIcon from '@material-ui/icons/ViewWeek';
 import Button from '@material-ui/core/Button';
 import NotFound from '@material-ui/icons/SentimentVeryDissatisfied';
 
 import PlantsLayoutStyles from './PlantsLayout.module.scss';
-import Plant from '../Plant/Plant';
-import PlantContext from '../../../context/plantContext';
 import buttonStyles from '../../../tsStyleSettings/buttonStyles';
 import { PlantType } from '../../customHooks/usePlants';
 import PlantsLayoutProps from './plantsLayoutProps';
 import { color1, color4 } from '../../../tsStyleSettings/colors';
 import usePlantsLayout from '../../customHooks/usePlantsLayout';
+import { Link } from 'react-router-dom';
+import ColumnLayout from './ColumnLayout/ColumnLayout'
+import RowLayout from './RowLayout/RowLayout';
+import PlantsCacheContext from '../../../context/plantsCacheContext';
 
 const PlantsLayout : React.FC<PlantsLayoutProps> = ({ plants, skip, quantity, loading, setSkip, children, plantName }) => {
 
     const [layout, changeLayout] = usePlantsLayout();
+    const cache = useContext(PlantsCacheContext);
 
     return (
         <>
@@ -32,9 +35,7 @@ const PlantsLayout : React.FC<PlantsLayoutProps> = ({ plants, skip, quantity, lo
                         <div className={`${PlantsLayoutStyles.Plants__flowers} ${layout === 'columns' ? 
                             PlantsLayoutStyles['Plants__flowers--columns'] : PlantsLayoutStyles['Plants__flowers--rows']}`}>
                             {plants.map((plant : PlantType) => (
-                                <PlantContext.Provider key={plant.name} value={plant}>
-                                    <Plant layout={layout} />
-                                </PlantContext.Provider>
+                                layout === 'columns' ? <ColumnLayout key={plant.name} plant={plant} /> : <RowLayout key={plant.name} plant={plant} />
                             ))}
                         </div>
                     </>
@@ -44,6 +45,14 @@ const PlantsLayout : React.FC<PlantsLayoutProps> = ({ plants, skip, quantity, lo
                             <NotFound style={{ fontSize: '80px' }} />
                             <h3 className={PlantsLayoutStyles.Plants__h3}> No results... </h3>
                         </div>
+                        :
+                        !cache && !loading ?
+                            <div className={PlantsLayoutStyles.Plants__notFound}>
+                                <NotFound style={{ fontSize: '80px' }} />
+                                <h3 className={PlantsLayoutStyles.Plants__h3}> Your garden is empty... Add some plants
+                                    <Link className={PlantsLayoutStyles.Plants__link} to="/plants"> here </Link>.
+                                </h3>
+                            </div>
                         : null
                 }
             </div>

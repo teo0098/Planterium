@@ -1,3 +1,5 @@
+@import '../../../scssSettings/colors';
+
 .Plants {
     padding: 30px;
     width: 80%;
@@ -53,6 +55,10 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+    }
+
+    &__link {
+        color: $color1;
     }
 
     @media (max-width: 1300px) {

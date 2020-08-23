@@ -7,7 +7,8 @@ export const PLANTS = gql`
             desc,
             watering,
             light,
-            watered
+            watered,
+            irrigation
         },
         quantity(name : $name, user : $user)
     }

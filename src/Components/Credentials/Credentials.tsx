@@ -29,7 +29,7 @@ const Credentials : React.FC = ({ children }) => (
         </FormLayout>
     </React.Fragment>
     :
-    <Redirect to="/account" />
+    <Redirect to="/garden" />
 ) 
 
 export default Credentials;
