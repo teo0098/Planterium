@@ -11,7 +11,7 @@ import PlantProps from '../plantProps';
 const ColumnLayout : React.FC<PlantProps> = ({ plant: { name, desc, watering, light, watered, irrigation } }) => {
 
     const [wrapDown, setWrapDown] = useState<boolean>(false);
-    const { renderStatus, renderButton, renderInfo } = useAddPlant(name, desc, watering, light, watered, irrigation);
+    const { renderAddStatus, renderButton, renderInfo } = useAddPlant(name, desc, watering, light, watered, irrigation);
 
     return (
         <section className={ColumnLayoutStyles.Plant} onClick={() => setWrapDown(!wrapDown)}>  
@@ -28,7 +28,7 @@ const ColumnLayout : React.FC<PlantProps> = ({ plant: { name, desc, watering, li
                     animate={{ height: 'auto' }}
                     exit={{ height: 0 }}>
                         {renderInfo()}
-                        {renderStatus()}
+                        {renderAddStatus()}
                         <div className={ColumnLayoutStyles.Plant__div}>
                             {renderButton()}
                         </div>

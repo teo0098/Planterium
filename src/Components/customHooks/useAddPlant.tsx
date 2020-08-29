@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { useMutation } from '@apollo/client';
 import Button from '@material-ui/core/Button/Button';
 
-import { ADD_PLANT } from '../../graphqlMutations';
+import { ADD_PLANT, REMOVE_PLANT, WATER_PLANT } from '../../graphqlMutations';
 import Loading from '../Loading/Loading';
 import Modal from '../Modal/Modal';
 import Alert from '@material-ui/lab/Alert';
@@ -13,14 +13,18 @@ import PlantSectionInfo from '../Plants/PlantsLayout/PlantSectionInfo/PlantSecti
 import { color6, color7 } from '../../tsStyleSettings/colors';
 
 type Function = (name : string, desc : string, watering : number, light : string, watered : string | null, irrigation : string | null) => {
-    renderStatus : () => JSX.Element | undefined,
+    renderAddStatus : () => JSX.Element | undefined,
     renderButton : () => JSX.Element | undefined,
-    renderInfo : () => JSX.Element | undefined
+    renderInfo : () => JSX.Element | undefined,
+    renderRemoveStatus : () => JSX.Element | undefined,
+    renderWaterStatus : () => JSX.Element | undefined
 }
 
 const useAddPlant : Function = (name, desc, watering, light, watered, irrigation) => {
 
-    const [addPlant, { loading, error, data }] = useMutation(ADD_PLANT, { onError: () => {} });
+    const [addPlant, { loading: addLoading, error: addError, data: addData }] = useMutation(ADD_PLANT, { onError: () => {} });
+    const [removePlant, { loading: removeLoading, error: removeError, data: removeData }] = useMutation(REMOVE_PLANT);
+    const [waterPlant, { loading: waterLoading, error: waterError, data: waterData }] = useMutation(WATER_PLANT);
     const cache = useContext(PlantsCacheContext);
 
     const handleAddPlant = (e : any) => {
@@ -37,17 +41,31 @@ const useAddPlant : Function = (name, desc, watering, light, watered, irrigation
 
     const handleRemovePlant = (e : any) => {
         e.stopPropagation();
+        removePlant({
+            variables: {
+                name
+            }
+        });
     }
 
-    const renderStatus = () => {
-        if (loading) return <Loading />;
-        else if (error) {
-            if (error.message === ERRORS.PLANT_EXISTS) return (
+    const handleWaterPlant = (e : any) => {
+        e.stopPropagation();
+        waterPlant({
+            variables: {
+                name
+            }
+        });
+    }
+
+    const renderAddStatus = () => {
+        if (addLoading) return <Loading />;
+        else if (addError) {
+            if (addError.message === ERRORS.PLANT_EXISTS) return (
                 <Modal>
                     <Alert severity='info'> This plant is already included in your garden. </Alert>
                 </Modal>
             );
-            else if (error.message === ERRORS.UNAUTHORIZED) return (
+            else if (addError.message === ERRORS.UNAUTHORIZED) return (
                 <Modal>
                     <Alert severity='info'> Please log in to your account. </Alert>
                 </Modal>
@@ -58,7 +76,35 @@ const useAddPlant : Function = (name, desc, watering, light, watered, irrigation
                 </Modal>
             );
         }
-        else if (data) return (
+        else if (addData) return (
+            <Modal>
+                <Alert severity='success'> Plant has been added to your garden successfully. </Alert>
+            </Modal>
+        );
+    }
+
+    const renderRemoveStatus = () => {
+        if (removeLoading) return <Loading />;
+        else if (removeError) return (
+            <Modal>
+                <Alert severity='error'> Unable to perform action. Please try again later. </Alert>
+            </Modal>
+        );
+        else if (removeData) return (
+            <Modal>
+                <Alert severity='success'> Plant has been removed from your garden successfully. </Alert>
+            </Modal>
+        );
+    }
+
+    const renderWaterStatus = () => {
+        if (waterLoading) return <Loading />;
+        else if (waterError) return (
+            <Modal>
+                <Alert severity='error'> Unable to perform action. Please try again later. </Alert>
+            </Modal>
+        );
+        else if (waterData) return (
             <Modal>
                 <Alert severity='success'> Plant has been added to your garden successfully. </Alert>
             </Modal>
@@ -71,7 +117,7 @@ const useAddPlant : Function = (name, desc, watering, light, watered, irrigation
         )
         else return (
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <Button onClick={handleAddPlant} variant="contained" color="primary">Water</Button>
+                <Button onClick={handleWaterPlant} variant="contained" color="primary">Water</Button>
                 <Button style={{ marginTop: '10px' }} onClick={handleRemovePlant} variant="contained" color="secondary">Remove from my garden</Button>
             </div>
         )
@@ -96,7 +142,7 @@ const useAddPlant : Function = (name, desc, watering, light, watered, irrigation
         )
     }
 
-    return { renderStatus, renderButton, renderInfo };
+    return { renderAddStatus, renderButton, renderInfo, renderRemoveStatus, renderWaterStatus };
 }
 
 export default useAddPlant;

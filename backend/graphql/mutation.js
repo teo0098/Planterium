@@ -4,6 +4,8 @@ const addUserResolver = require('./resolvers/addUserResolver');
 const loginResolver = require('./resolvers/loginResolver');
 const addPlantResolver = require('./resolvers/addPlantResolver');
 const logoutResolver = require('./resolvers/logoutResolver');
+const waterPlantResolver = require('./resolvers/waterPlantResolver');
+const removePlantResolver = require('./resolvers/removePlantResolver');
 
 const mutation = new GraphQLObjectType({
     name: 'Mutation',
@@ -38,6 +40,20 @@ const mutation = new GraphQLObjectType({
         logout: {
             type: GraphQLBoolean,
             resolve: logoutResolver
+        },
+        removePlant: {
+            type: GraphQLBoolean,
+            args: {
+                name: { type: new GraphQLNonNull(GraphQLString) }
+            },
+            resolve: removePlantResolver
+        },
+        waterPlant: {
+            type: GraphQLBoolean,
+            args: {
+                name: { type: new GraphQLNonNull(GraphQLString) }
+            },
+            resolve: waterPlantResolver
         }
     })
 });

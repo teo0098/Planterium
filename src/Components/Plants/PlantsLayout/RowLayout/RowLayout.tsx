@@ -7,7 +7,7 @@ import PlantProps from '../plantProps';
 
 const RowLayout : React.FC<PlantProps> = ({ plant: { name, desc, watering, light, watered, irrigation } }) => {
 
-    const { renderStatus, renderButton, renderInfo } = useAddPlant(name, desc, watering, light, watered, irrigation);
+    const { renderAddStatus, renderButton, renderInfo } = useAddPlant(name, desc, watering, light, watered, irrigation);
 
     return (
         <section className={RowLayoutStyles.Plant}>
@@ -17,7 +17,7 @@ const RowLayout : React.FC<PlantProps> = ({ plant: { name, desc, watering, light
             </section>
             <div className={RowLayoutStyles.Plant__info}>
                 {renderInfo()}
-                {renderStatus()}
+                {renderAddStatus()}
                 <div className={RowLayoutStyles.Plant__div}>
                     {renderButton()}
                 </div>

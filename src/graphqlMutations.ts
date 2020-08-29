@@ -23,3 +23,15 @@ export const LOGOUT = gql`
         logout
     }
 `;
+
+export const REMOVE_PLANT = gql`
+    mutation RemovePlant($name: String!) {
+        removePlant(name: $name)
+    }
+`;
+
+export const WATER_PLANT = gql`
+    mutation WaterPlant($name: String!) {
+        waterPlant(name: $name)
+    }
+`;
