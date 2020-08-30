@@ -13,12 +13,12 @@ import usePlantsLayout from '../../customHooks/usePlantsLayout';
 import { Link } from 'react-router-dom';
 import ColumnLayout from './ColumnLayout/ColumnLayout'
 import RowLayout from './RowLayout/RowLayout';
-import PlantsCacheContext from '../../../context/plantsCacheContext';
+import PlantsContext from '../../../context/plantsContext';
 
 const PlantsLayout : React.FC<PlantsLayoutProps> = ({ plants, skip, quantity, loading, setSkip, children, plantName }) => {
 
     const [layout, changeLayout] = usePlantsLayout();
-    const cache = useContext(PlantsCacheContext);
+    const { cache } = useContext(PlantsContext);
 
     return (
         <>
@@ -42,13 +42,13 @@ const PlantsLayout : React.FC<PlantsLayoutProps> = ({ plants, skip, quantity, lo
                     :
                     plantName ?
                         <div className={PlantsLayoutStyles.Plants__notFound}>
-                            <NotFound style={{ fontSize: '80px' }} />
+                            <NotFound style={{ fontSize: '70px' }} />
                             <h3 className={PlantsLayoutStyles.Plants__h3}> No results... </h3>
                         </div>
                         :
                         !cache && !loading ?
                             <div className={PlantsLayoutStyles.Plants__notFound}>
-                                <NotFound style={{ fontSize: '80px' }} />
+                                <NotFound style={{ fontSize: '70px' }} />
                                 <h3 className={PlantsLayoutStyles.Plants__h3}> Your garden is empty... Add some plants
                                     <Link className={PlantsLayoutStyles.Plants__link} to="/plants"> here </Link>.
                                 </h3>

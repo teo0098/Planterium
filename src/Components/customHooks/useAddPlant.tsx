@@ -1,18 +1,19 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useMutation } from '@apollo/client';
 import Button from '@material-ui/core/Button/Button';
+import { motion } from 'framer-motion';
 
 import { ADD_PLANT, REMOVE_PLANT, WATER_PLANT } from '../../graphqlMutations';
 import Loading from '../Loading/Loading';
 import Modal from '../Modal/Modal';
 import Alert from '@material-ui/lab/Alert';
 import ERRORS from '../../ERRORS';
-import PlantsCacheContext from '../../context/plantsCacheContext';
+import PlantsContext from '../../context/plantsContext';
 import buttonStyles from '../../tsStyleSettings/buttonStyles';
 import PlantSectionInfo from '../Plants/PlantsLayout/PlantSectionInfo/PlantSectionInfo';
 import { color6, color7 } from '../../tsStyleSettings/colors';
 
-type Function = (name : string, desc : string, watering : number, light : string, watered : string | null, irrigation : string | null) => {
+type Function = (name : string, desc : string, watering : number, light : string, watered : string | null, irrigation : number | null) => {
     renderAddStatus : () => JSX.Element | undefined,
     renderButton : () => JSX.Element | undefined,
     renderInfo : () => JSX.Element | undefined,
@@ -25,7 +26,17 @@ const useAddPlant : Function = (name, desc, watering, light, watered, irrigation
     const [addPlant, { loading: addLoading, error: addError, data: addData }] = useMutation(ADD_PLANT, { onError: () => {} });
     const [removePlant, { loading: removeLoading, error: removeError, data: removeData }] = useMutation(REMOVE_PLANT);
     const [waterPlant, { loading: waterLoading, error: waterError, data: waterData }] = useMutation(WATER_PLANT);
-    const cache = useContext(PlantsCacheContext);
+    const { cache, setPlants } = useContext(PlantsContext);
+    const [irrigationRate, setIrrigationRate] = useState<number | null>(irrigation);
+    const [lastWatered, setLastWatered] = useState<string | null>(watered);
+
+    useEffect(() => {
+        if (waterData) {
+            setIrrigationRate(100);
+            setLastWatered(waterData.waterPlant);
+        }
+        if (removeData) setPlants(prevState => prevState.filter(plant => plant.name !== name));
+    }, [waterData, removeData, name, setPlants]);
 
     const handleAddPlant = (e : any) => {
         e.stopPropagation();
@@ -90,11 +101,6 @@ const useAddPlant : Function = (name, desc, watering, light, watered, irrigation
                 <Alert severity='error'> Unable to perform action. Please try again later. </Alert>
             </Modal>
         );
-        else if (removeData) return (
-            <Modal>
-                <Alert severity='success'> Plant has been removed from your garden successfully. </Alert>
-            </Modal>
-        );
     }
 
     const renderWaterStatus = () => {
@@ -102,11 +108,6 @@ const useAddPlant : Function = (name, desc, watering, light, watered, irrigation
         else if (waterError) return (
             <Modal>
                 <Alert severity='error'> Unable to perform action. Please try again later. </Alert>
-            </Modal>
-        );
-        else if (waterData) return (
-            <Modal>
-                <Alert severity='success'> Plant has been added to your garden successfully. </Alert>
             </Modal>
         );
     }
@@ -129,12 +130,13 @@ const useAddPlant : Function = (name, desc, watering, light, watered, irrigation
                 <PlantSectionInfo info="Description"> {desc} </PlantSectionInfo>
                 <PlantSectionInfo info="Watering"> Per {watering}h </PlantSectionInfo>
                 <PlantSectionInfo info="Light"> {light} </PlantSectionInfo>
-                {watered ? <PlantSectionInfo info="Last watered"> {watered} </PlantSectionInfo> : null}
+                {watered ? <PlantSectionInfo info="Last watered"> {lastWatered} </PlantSectionInfo> : null}
                 {irrigation ? 
                     <>
-                        <PlantSectionInfo info="Irrigation's rate"> {irrigation}% </PlantSectionInfo>
+                        <PlantSectionInfo info="Irrigation's rate"> {Number(irrigationRate).toFixed(2)}% </PlantSectionInfo>
                         <div style={{ height: '8px', background: color7, borderRadius: '5px', margin: '0 0 30px 0' }}>
-                            <div style={{ background: color6, height: 'inherit', width: `${irrigation}%`, borderRadius: 'inherit' }}></div>
+                            <motion.div animate={{ width: `${irrigationRate}%`, transition: { type: 'tween', duration: 1, ease: 'linear' } }} 
+                            style={{ background: color6, height: 'inherit', width: `${irrigationRate}%`, borderRadius: 'inherit' }}></motion.div>
                         </div>
                     </>
                 : null}
@@ -142,7 +144,7 @@ const useAddPlant : Function = (name, desc, watering, light, watered, irrigation
         )
     }
 
-    return { renderAddStatus, renderButton, renderInfo, renderRemoveStatus, renderWaterStatus };
+    return { renderAddStatus, renderButton, renderInfo, renderRemoveStatus, renderWaterStatus }
 }
 
 export default useAddPlant;

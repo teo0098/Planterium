@@ -1,16 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useMutation } from '@apollo/client';
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 import { LOGOUT } from '../../graphqlMutations';
-import Loading from '../Loading/Loading';
 import { Redirect } from 'react-router-dom';
 
 type Function = () => { 
     menu : boolean, 
     setMenu : React.Dispatch<React.SetStateAction<boolean>>, 
     ref : any, 
-    logout : () => void,
-    renderStatus : () => JSX.Element | undefined
+    signOut : (e : any) => void,
+    renderStatus : () => JSX.Element | string,
+    redirect : () => JSX.Element | null
 };
 
 const useLoginTab : Function = () => {
@@ -25,12 +26,16 @@ const useLoginTab : Function = () => {
         return () => window.removeEventListener('click', hideMenu);
     }, [menu]);
 
-    const renderStatus = () => {
-        if (loading) return <Loading />;
-        else if (data) return <Redirect to='/login' />;
+    const signOut = (e : any) => {
+        e.stopPropagation();
+        logout();
     }
+
+    const renderStatus = () => loading ? <CircularProgress /> : 'Log out';
+
+    const redirect = () => data ? <Redirect to='/login' /> : null;
     
-    return { menu, setMenu, ref, logout, renderStatus };
+    return { menu, setMenu, ref, signOut, renderStatus, redirect };
 }
 
 export default useLoginTab;

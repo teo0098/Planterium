@@ -49,7 +49,7 @@ const mutation = new GraphQLObjectType({
             resolve: removePlantResolver
         },
         waterPlant: {
-            type: GraphQLBoolean,
+            type: GraphQLString,
             args: {
                 name: { type: new GraphQLNonNull(GraphQLString) }
             },

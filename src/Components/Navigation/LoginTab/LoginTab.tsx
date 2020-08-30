@@ -9,11 +9,11 @@ import useLoginTab from '../../customHooks/useLoginTab';
 
 const LoginTab : React.FC = () => {
 
-    const { menu, setMenu, ref, logout, renderStatus } = useLoginTab();
+    const { menu, setMenu, ref, signOut, renderStatus, redirect } = useLoginTab();
 
     return (
         <>
-            {renderStatus()}
+            {redirect()}
             {cookies.get('user') === undefined ?
                 <Link className={LoginTabStyles.LoginTab} to='/login'> Login </Link>
                 :
@@ -26,7 +26,7 @@ const LoginTab : React.FC = () => {
                             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                             transition={{ duration: 0.2 }}>
                                 <Link className={LoginTabStyles.LoginTab__item} to='/garden'> My garden </Link>
-                                <span onClick={logout} className={LoginTabStyles.LoginTab__item}> Log out </span>
+                                <span onClick={signOut} className={LoginTabStyles.LoginTab__item}> {renderStatus()} </span>
                             </motion.nav>
                         )}
                     </AnimatePresence>

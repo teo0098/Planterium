@@ -12,10 +12,11 @@ const waterPlantResolver = async (_, args, { req: { cookies }, res }) => {
         plant.watered = generateDate();
         plant.irrigation = Date.now();
         const plantIndex = user.garden.findIndex(({ name }) => name === args.name);
+        if (plantIndex === -1) throw new Error();
         user.garden[plantIndex] = plant;
         await User.findOneAndUpdate({ nickname: user.nickname }, { garden: user.garden }, { new: true, useFindAndModify: false });
         generateTokens(res, user.nickname);
-        return true;
+        return plant.watered;
     }
     catch {
         throw new Error();

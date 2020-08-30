@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/client';
 
 import { PLANTS } from '../../graphqlQueries';
 
-export type PlantType = { name : string, desc : string, watering : number, light : string, watered : string | null, irrigation : string | null };
+export type PlantType = { name : string, desc : string, watering : number, light : string, watered : string | null, irrigation : number | null };
 
 type Function = (cache : boolean | undefined) => {
     skip : number, 
@@ -13,7 +13,8 @@ type Function = (cache : boolean | undefined) => {
     error : any,
     loading : boolean,
     plantName : string,
-    setPlantName : React.Dispatch<React.SetStateAction<string>>
+    setPlantName : React.Dispatch<React.SetStateAction<string>>,
+    setPlants : React.Dispatch<React.SetStateAction<PlantType[]>>
 };
 
 export const usePlants : Function = (cache) => {
@@ -39,5 +40,5 @@ export const usePlants : Function = (cache) => {
         }
     }, [loading, data, error, skip]);
 
-    return { skip, setSkip, quantity, plants, error, loading, plantName, setPlantName }
+    return { skip, setSkip, quantity, plants, error, loading, plantName, setPlantName, setPlants }
 }
