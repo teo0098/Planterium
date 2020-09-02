@@ -6,7 +6,7 @@ import useHamburger from '../../customHooks/useHamburger';
 
 const Hamburger : React.FC<HamburgerProps> = ({ menuOn, setMenuOn }) => {
 
-    const { hamburgerRef } = useHamburger(menuOn);
+    const hamburgerRef = useHamburger(menuOn);
 
     return (
         <div onClick={() => setMenuOn(prevState => !prevState)} className={HamburgerStyles.Hamburger}>

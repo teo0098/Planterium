@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 import cookies from 'js-cookie';
 import ArrowDownIcon from '@material-ui/icons/ArrowDropDown';
@@ -36,4 +36,4 @@ const LoginTab : React.FC = () => {
     ) 
 }
 
-export default React.memo(LoginTab);
+export default memo(LoginTab);

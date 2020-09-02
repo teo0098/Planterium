@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Flower from '@material-ui/icons/LocalFloristOutlined';
 
 import LogoStyles from './Logo.module.scss';
@@ -10,4 +10,4 @@ const Logo : React.FC = () => (
     </div>
 )
 
-export default React.memo(Logo);
+export default memo(Logo);

@@ -4,18 +4,17 @@ import TextField from '@material-ui/core/TextField';
 import { Field } from 'react-final-form';
 
 import inputStyles from '../../../tsStyleSettings/inputStyles';
-import { messageValidation } from '../../../inputsValidations';
+import { plantDescValidation } from '../../../inputsValidations';
 
-const Message : React.FC = () => (
-    <Field name="message" component="input" validate={messageValidation}>
+const PlantDesc : React.FC = () => (
+    <Field name="desc" component="input" validate={plantDescValidation}>
         {({ input, meta }) => (
             <div>
-                <TextField style={inputStyles} {...input} label="Message" variant="filled"
-                multiline rows={5} />
+                <TextField multiline rows={5} style={inputStyles} {...input} label="Plant's description" variant="filled" />
                 {meta.error && meta.touched && <Alert style={{ textAlign: 'left' }} severity="error"> {meta.error} </Alert>}
             </div>
         )}
     </Field>
 )
 
-export default Message;
+export default PlantDesc;

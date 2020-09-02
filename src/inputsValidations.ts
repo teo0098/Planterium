@@ -35,3 +35,25 @@ export const rpasswordValidation = (values : any) => {
     if (values.password !== values.rpassword) errors.rpassword = 'Passwords must match';
     return errors;
 }
+
+export const loginValidation = (value : string) => !value ? 'Field is required' : null;
+
+export const plantNameValidation = (value : string) => {
+    if (!value) return 'Field is required';
+    else if (!/^[A-Za-z\s]+$/.test(value)) return 'Only letters and optionally spaces';
+    else if (value.trim().length > 30 || value.trim().length < 2) return 'From 2 up to 30 characters';
+}
+
+export const plantWateringValidation = (value : string) => {
+    if (!value) return 'Field is required';
+    else if (!/^[0-9]+?$/.test(value)) return 'Only digits allowed';
+    else if (Number(value) < 24) return 'Too low time';
+    else if (Number(value) > 999) return 'Too large time';
+}
+
+export const plantDescValidation = (value : string) => value && /[<>]/.test(value) ? "Field can't contain <> parentheses" : null;
+
+export const plantLightValidation = (value : string) => {
+    if (value &&!/^[A-Za-z\s]+$/.test(value)) return 'Only letters and optionally spaces';
+    else if (value && (value.trim().length > 20 || value.trim().length < 2)) return 'From 2 up to 20 characters';
+}

@@ -20,9 +20,7 @@ const Signup : React.FC = () => {
 
     return (
         <Credentials>
-            <Form onSubmit={handleOnSubmit}
-            decorators={[decorator]}
-            validate={rpasswordValidation}>
+            <Form onSubmit={handleOnSubmit} decorators={[decorator]} validate={rpasswordValidation}>
                 {({ handleSubmit }) =>
                     <form onSubmit={handleSubmit}>
                         <FormInputsLayout>

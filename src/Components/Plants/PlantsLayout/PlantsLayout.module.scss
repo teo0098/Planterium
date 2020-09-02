@@ -30,31 +30,23 @@
         &--rows {
             grid-template-columns: 1fr;
         }
-
-        @media (max-width: 900px) {
-            & {
-                padding-top: 30px;
-            }
-        }
     }
 
     &__layout {
         display: flex;
         justify-content: flex-end;
+        align-items: center;
         padding: 20px 0;
+    }
+
+    &__layouts {
+        display: flex;
 
         @media (max-width: 900px) {
             & {
                 display: none;
             }
         }
-    }
-
-    &__notFound {
-        padding: 20px 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
     }
 
     &__link {

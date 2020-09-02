@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useMutation } from '@apollo/client';
-import CircularProgress from '@material-ui/core/CircularProgress'
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { LOGOUT } from '../../graphqlMutations';
 import { Redirect } from 'react-router-dom';
@@ -17,7 +17,7 @@ type Function = () => {
 const useLoginTab : Function = () => {
 
     const [menu, setMenu] = useState<boolean>(false);
-    const ref : any = useRef<null | HTMLDivElement>(null);
+    const ref : any = useRef<null | HTMLDivElement | HTMLFormElement>(null);
     const [logout, { loading, data }] = useMutation(LOGOUT);
 
     useEffect(() => {
@@ -26,14 +26,14 @@ const useLoginTab : Function = () => {
         return () => window.removeEventListener('click', hideMenu);
     }, [menu]);
 
-    const signOut = (e : any) => {
+    const signOut = useCallback((e : any) => {
         e.stopPropagation();
         logout();
-    }
+    }, [logout]); 
 
-    const renderStatus = () => loading ? <CircularProgress /> : 'Log out';
+    const renderStatus = useCallback(() => loading ? <CircularProgress /> : 'Log out', [loading]);
 
-    const redirect = () => data ? <Redirect to='/login' /> : null;
+    const redirect = useCallback(() => data ? <Redirect to='/login' /> : null, [data]);
     
     return { menu, setMenu, ref, signOut, renderStatus, redirect };
 }

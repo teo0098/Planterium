@@ -4,18 +4,17 @@ import TextField from '@material-ui/core/TextField';
 import { Field } from 'react-final-form';
 
 import inputStyles from '../../../tsStyleSettings/inputStyles';
-import { messageValidation } from '../../../inputsValidations';
+import { loginValidation } from '../../../inputsValidations';
 
-const Message : React.FC = () => (
-    <Field name="message" component="input" validate={messageValidation}>
+const LoginPassword : React.FC = () => (
+    <Field name="password" component="input" validate={loginValidation}>
         {({ input, meta }) => (
             <div>
-                <TextField style={inputStyles} {...input} label="Message" variant="filled"
-                multiline rows={5} />
+                <TextField type="password" style={inputStyles} {...input} label="Password" variant="filled" />
                 {meta.error && meta.touched && <Alert style={{ textAlign: 'left' }} severity="error"> {meta.error} </Alert>}
             </div>
         )}
     </Field>
 )
 
-export default Message;
+export default LoginPassword;

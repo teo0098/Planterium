@@ -12,6 +12,7 @@ import Signup from '../Credentials/Signup/Signup';
 import Plants from '../Plants/Plants';
 import Account from '../Account/Account';
 import { IS_AUTH } from '../../graphqlQueries';
+import Page404 from '../404/404';
 
 const App : React.FC = () => {
 
@@ -26,11 +27,12 @@ const App : React.FC = () => {
         <div>
           <Switch>
             <Route exact path='/' component={Home} />
-            <Route path='/contact' component={Contact} />
-            <Route path='/login' component={Login} />
-            <Route path='/signup' component={Signup} />
-            <Route path='/plants' render={props => <Plants {...props} cache />} />
-            <Route path='/garden' component={Account} />
+            <Route exact path='/contact' component={Contact} />
+            <Route exact path='/login' component={Login} />
+            <Route exact path='/signup' component={Signup} />
+            <Route exact path='/plants' render={props => <Plants {...props} cache />} />
+            <Route exact path='/garden' component={Account} />
+            <Route component={Page404} /> 
           </Switch>
         </div>
         <Footer />

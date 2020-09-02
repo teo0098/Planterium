@@ -4,9 +4,9 @@ const PlantType = new GraphQLObjectType({
     name: 'Plant',
     fields: () => ({
         name: { type: new GraphQLNonNull(GraphQLString) },
-        desc: { type: new GraphQLNonNull(GraphQLString) },
+        desc: { type: GraphQLString },
         watering: { type: new GraphQLNonNull(GraphQLInt) },
-        light: { type: new GraphQLNonNull(GraphQLString) },
+        light: { type: GraphQLString },
         watered: { type: GraphQLString },
         irrigation: { type: GraphQLString }
     })

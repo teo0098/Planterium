@@ -1,16 +1,14 @@
 import React, { useMemo } from 'react';
-import { Form, Field } from 'react-final-form';
-import TextField from '@material-ui/core/TextField';
+import { Form } from 'react-final-form';
 import Button from '@material-ui/core/Button';
-import Alert from '@material-ui/lab/Alert';
 import createDecorator from 'final-form-focus';
 
 import Credentials from '../Credentials';
-import inputStyles from '../../../tsStyleSettings/inputStyles';
 import buttonStyles from '../../../tsStyleSettings/buttonStyles';
-import loginValidation from './loginValidation';
 import FormInputsLayout from '../../FormInputsLayout/FormInputsLayout';
 import useLogin from '../../customHooks/useLogin';
+import LoginPassword from '../../Inputs/LoginPassword/LoginPassword';
+import LoginInput from '../../Inputs/Login/Login';
 
 const Login : React.FC = () => {
 
@@ -23,22 +21,8 @@ const Login : React.FC = () => {
                 {({ handleSubmit }) =>
                     <form onSubmit={handleSubmit}>
                         <FormInputsLayout>
-                            <Field name="login" component="input" validate={loginValidation}>
-                                {({ input, meta }) => (
-                                    <div>
-                                        <TextField style={inputStyles} {...input} label="Email or nickname" variant="filled" />
-                                        {meta.error && meta.touched && <Alert style={{ textAlign: 'left' }} severity="error"> {meta.error} </Alert>}
-                                    </div>
-                                )}
-                            </Field>
-                            <Field name="password" component="input" validate={loginValidation}>
-                                {({ input, meta }) => (
-                                    <div>
-                                        <TextField type="password" style={inputStyles} {...input} label="Password" variant="filled" />
-                                        {meta.error && meta.touched && <Alert style={{ textAlign: 'left' }} severity="error"> {meta.error} </Alert>}
-                                    </div>
-                                )}
-                            </Field>
+                            <LoginInput />
+                            <LoginPassword />
                             {renderStatus()}
                         </FormInputsLayout>
                         <Button style={buttonStyles} type="submit" variant="contained" color="primary">Log in</Button>

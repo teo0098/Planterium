@@ -1,5 +1,6 @@
 const Plant = require('../../models/plant');
 const isAuth = require('../../middlewares/isAuth');
+const generatePercentages = require('../../middlewares/generatePercentages');
 
 const plantsResolver = async (_, args, { req: { cookies } }) => {
     try {
@@ -13,12 +14,7 @@ const plantsResolver = async (_, args, { req: { cookies } }) => {
             const user = await isAuth(cookies);
             if (!user) throw new Error();
             user.garden = user.garden.map(plant => {
-                let hours = Date.now() - Number(plant.irrigation);
-                hours = Math.round(hours / 1000 / 60 / 60);
-                let percentage = Number(hours) / Number(plant.watering) * 100;
-                if (percentage >= 100) percentage = 0;
-                else percentage = 100 - percentage;
-                plant.irrigation = percentage.toFixed(2).toString();
+                plant.irrigation = generatePercentages(plant.irrigation, plant.watering);
                 return plant;
             });
             if (args.name === "" || !args.name) {

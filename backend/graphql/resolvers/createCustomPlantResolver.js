@@ -1,13 +1,14 @@
-const User = require('../../models/user');
-const { PLANT_EXISTS, UNAUTHORIZED } = require('../../ERRORS');
 const isAuth = require('../../middlewares/isAuth');
+const { PLANT_EXISTS } = require('../../ERRORS');
 const generateTokens = require('../../middlewares/generateTokens');
 const generateDate = require('../../middlewares/generateDate');
+const User = require('../../models/user');
+const generatePercentages = require('../../middlewares/generatePercentages');
 
-const addUserResolver = async (_, args, { req: { cookies }, res }) => {
+const createCustomPlantResolver = async (_, args, { req: { cookies }, res }) => {
     try {
         const user = await isAuth(cookies);
-        if (!user) throw new Error(UNAUTHORIZED);
+        if (!user) throw new Error();
         const plantExists = user.garden.find(({ name }) => name === args.name);
         if (plantExists) throw new Error(PLANT_EXISTS);
         const newPlant = {
@@ -15,15 +16,16 @@ const addUserResolver = async (_, args, { req: { cookies }, res }) => {
             watered: generateDate(),
             irrigation: Date.now()
         }
-        user.garden.push(newPlant);
+        user.garden.unshift(newPlant);
         await User.findOneAndUpdate({ nickname: user.nickname }, { garden: user.garden }, { new: true, useFindAndModify: false });
         generateTokens(res, user.nickname);
-        return true;
+        newPlant.irrigation = generatePercentages(newPlant.irrigation, newPlant.watering);
+        return newPlant;
     }
-    catch ({ message }) {
-        if (message === PLANT_EXISTS || message === UNAUTHORIZED) throw new Error(message);
+    catch({ message }) {
+        if (message === PLANT_EXISTS) throw new Error(message);
         throw new Error();
     }
-};
+}
 
-module.exports = addUserResolver;
+module.exports = createCustomPlantResolver;

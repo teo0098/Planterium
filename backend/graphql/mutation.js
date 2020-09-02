@@ -6,6 +6,8 @@ const addPlantResolver = require('./resolvers/addPlantResolver');
 const logoutResolver = require('./resolvers/logoutResolver');
 const waterPlantResolver = require('./resolvers/waterPlantResolver');
 const removePlantResolver = require('./resolvers/removePlantResolver');
+const createCustomPlantResolver = require('./resolvers/createCustomPlantResolver');
+const PlantType = require('../graphql/types/plantType');
 
 const mutation = new GraphQLObjectType({
     name: 'Mutation',
@@ -54,6 +56,16 @@ const mutation = new GraphQLObjectType({
                 name: { type: new GraphQLNonNull(GraphQLString) }
             },
             resolve: waterPlantResolver
+        },
+        createCustomPlant: {
+            type: PlantType,
+            args: {
+                name: { type: new GraphQLNonNull(GraphQLString) },
+                watering: { type: new GraphQLNonNull(GraphQLInt) },
+                desc: { type: GraphQLString },
+                light: { type: GraphQLString }
+            },
+            resolve: createCustomPlantResolver
         }
     })
 });
