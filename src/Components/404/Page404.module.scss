@@ -1,0 +1,26 @@
+@import '../../scssSettings/settings';
+@import '../../scssSettings/colors';
+
+.Page404 {
+    height: calc(100vh - (#{$navigationHeight + $footerHeight}));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+
+    &__p {
+        color: $color5;
+        text-align: center;
+    }
+
+    &__a {
+        color: $color5;
+    }
+
+    @media (max-width: 700px) {
+        & {
+            height: calc(100vh - (#{$resNavigationHeight + $footerHeight}));
+        }
+    }
+}

@@ -12,7 +12,7 @@ import Signup from '../Credentials/Signup/Signup';
 import Plants from '../Plants/Plants';
 import Account from '../Account/Account';
 import { IS_AUTH } from '../../graphqlQueries';
-import Page404 from '../404/404';
+import Page404 from '../404/Page404';
 
 const App : React.FC = () => {
 
