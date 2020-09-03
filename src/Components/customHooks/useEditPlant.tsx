@@ -127,9 +127,9 @@ const useAddPlant : Function = (name, desc, watering, light, watered, irrigation
     const renderInfo = () => {
         return (
             <>
-                <PlantSectionInfo info="Description"> {desc} </PlantSectionInfo>
+                {desc ? <PlantSectionInfo info="Description"> {desc} </PlantSectionInfo> : null}
                 <PlantSectionInfo info="Watering"> Per {watering}h </PlantSectionInfo>
-                <PlantSectionInfo info="Light"> {light} </PlantSectionInfo>
+                {light ? <PlantSectionInfo info="Light"> {light} </PlantSectionInfo> : null}
                 {watered ? <PlantSectionInfo info="Last watered"> {lastWatered} </PlantSectionInfo> : null}
                 {irrigation ? 
                     <>

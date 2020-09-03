@@ -5,13 +5,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 import ColumnLayoutStyles from './ColumnLayout.module.scss';
 import PlantFlowerIcon from '../PlantFlowerIcon/PlantFlowerIcon';
-import useAddPlant from '../../../customHooks/useAddPlant';
+import useEditPlant from '../../../customHooks/useEditPlant';
 import PlantProps from '../plantProps';
 
 const ColumnLayout : React.FC<PlantProps> = ({ plant: { name, desc, watering, light, watered, irrigation } }) => {
 
     const [wrapDown, setWrapDown] = useState<boolean>(false);
-    const { renderAddStatus, renderButton, renderInfo, renderRemoveStatus, renderWaterStatus } = useAddPlant(name, desc, watering, light, watered, irrigation);
+    const { renderAddStatus, renderButton, renderInfo, renderRemoveStatus, renderWaterStatus } = useEditPlant(name, desc, watering, light, watered, irrigation);
 
     return (
         <section className={ColumnLayoutStyles.Plant} onClick={() => setWrapDown(!wrapDown)}>  

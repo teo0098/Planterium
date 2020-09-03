@@ -46,7 +46,7 @@ export const plantNameValidation = (value : string) => {
 
 export const plantWateringValidation = (value : string) => {
     if (!value) return 'Field is required';
-    else if (!/^[0-9]+?$/.test(value)) return 'Only digits allowed';
+    else if (!/^[0-9]+$/.test(value)) return 'Only digits allowed';
     else if (Number(value) < 24) return 'Too low time';
     else if (Number(value) > 999) return 'Too large time';
 }

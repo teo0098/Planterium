@@ -23,7 +23,7 @@ const useCustomPlant : Function = (menu) => {
             if (!contain) return [data.createCustomPlant, ...prevState];
             return prevState;
         });
-    }, [menu]);
+    }, [menu, data, setPlants]);
 
     const handleOnSubmit = (values : any) => {
         setCalled(true);
@@ -61,7 +61,7 @@ const useCustomPlant : Function = (menu) => {
     const renderDiv = () => {
         return (
             called ?
-                <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'center' }}>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
                     {renderStatus()}
                 </div>
             : null

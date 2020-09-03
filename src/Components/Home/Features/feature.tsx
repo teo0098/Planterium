@@ -11,7 +11,7 @@ export const features : Array<FeatureType> = [
         icon: <PlaceIcon style={{ fontSize: '60px' }} />
     },
     {
-        desc: "Stop worrying about the date of watering your plants. We will be tracking that and we will inform you when it is time to irrigate them.",
+        desc: "Stop worrying about the date of watering your plants. We will be tracking that so you can clearly see what is your plant's irrigation's rate.",
         icon: <WaterIcon style={{ fontSize: '60px' }} />
     },
     {

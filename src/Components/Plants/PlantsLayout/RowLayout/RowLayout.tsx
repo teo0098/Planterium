@@ -2,12 +2,12 @@ import React from 'react';
 
 import RowLayoutStyles from './RowLayout.module.scss';
 import PlantFlowerIcon from '../PlantFlowerIcon/PlantFlowerIcon';
-import useAddPlant from '../../../customHooks/useAddPlant';
+import useEditPlant from '../../../customHooks/useEditPlant';
 import PlantProps from '../plantProps';
 
 const RowLayout : React.FC<PlantProps> = ({ plant: { name, desc, watering, light, watered, irrigation } }) => {
 
-    const { renderAddStatus, renderButton, renderInfo, renderRemoveStatus, renderWaterStatus } = useAddPlant(name, desc, watering, light, watered, irrigation);
+    const { renderAddStatus, renderButton, renderInfo, renderRemoveStatus, renderWaterStatus } = useEditPlant(name, desc, watering, light, watered, irrigation);
 
     return (
         <section className={RowLayoutStyles.Plant}>

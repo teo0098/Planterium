@@ -29,20 +29,24 @@ const CustomPlant : React.FC = () => {
                     <>
                         <Form onSubmit={handleOnSubmit} decorators={[decorator]}>
                             {({ handleSubmit }) =>
-                                <motion.form initial={{ opacity: 0, y: '-100%' }} animate={{ opacity: 1, y: '0' }} exit={{ opacity: 0 }} 
+                                <motion.form initial={{ opacity: 0, y: '-100%' }} animate={{ opacity: 1, y: '0' }} 
+                                exit={{ opacity: 0, transition: { duration: 0.3 } }} 
                                 ref={ref} onSubmit={handleSubmit} className={CustomPlantStyles.CustomPlant__form}>
                                     <div className={CustomPlantStyles.CustomPlant__inputs}>
                                         <PlantName />
                                         <PlantWatering />
                                         <PlantLight />
                                     </div>
-                                    <PlantDesc />
+                                    <div className={CustomPlantStyles.CustomPlant__plantDesc}>
+                                        <PlantDesc />
+                                    </div>
                                     {renderDiv()}
-                                    <Button style={{ ...buttonStyles, marginTop: '20px', alignSelf: 'center' }} type="submit" variant="contained" color="primary">Add</Button>
+                                    <Button style={{ ...buttonStyles, marginTop: '10px', alignSelf: 'center' }} type="submit" variant="contained" color="primary">Add</Button>
                                 </motion.form>
                             }
                         </Form>
-                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} 
+                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+                        exit={{ opacity: 0, transition: { duration: 0.3 } }} 
                         className={CustomPlantStyles.CustomPlant__div}></motion.div>
                     </>
                 )}
