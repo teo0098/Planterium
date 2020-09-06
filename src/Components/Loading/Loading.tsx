@@ -5,7 +5,7 @@ import LoadingStyles from './Loading.module.scss';
 
 const Loading : React.FC = () => (
     <div className={LoadingStyles.Loading}>
-        <LinearProgress style={{ height: '7px' }} />
+        <LinearProgress style={{ height: '8px' }} />
     </div>
 )
 

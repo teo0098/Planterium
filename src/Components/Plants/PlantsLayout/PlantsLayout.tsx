@@ -16,7 +16,7 @@ import PlantsContext from '../../../context/plantsContext';
 import CustomPlant from './CustomPlant/CustomPlant';
 import NotFound from './NotFound/NotFound';
 
-const PlantsLayout : React.FC<PlantsLayoutProps> = ({ plants, skip, quantity, loading, setSkip, children, plantName }) => {
+const PlantsLayout : React.FC<PlantsLayoutProps> = ({ plants, skip, quantity, loading, setSkip, children, searchName }) => {
 
     const [layout, changeLayout] = usePlantsLayout();
     const { cache } = useContext(PlantsContext);
@@ -44,7 +44,7 @@ const PlantsLayout : React.FC<PlantsLayoutProps> = ({ plants, skip, quantity, lo
                         </div>
                     </>
                     :
-                    plantName ?
+                    searchName ?
                         <NotFound> No results... </NotFound>
                         :
                         !cache && !loading ?

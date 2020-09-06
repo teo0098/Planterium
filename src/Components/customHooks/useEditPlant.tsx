@@ -26,7 +26,7 @@ const useAddPlant : Function = (name, desc, watering, light, watered, irrigation
     const [addPlant, { loading: addLoading, error: addError, data: addData }] = useMutation(ADD_PLANT, { onError: () => {} });
     const [removePlant, { loading: removeLoading, error: removeError, data: removeData }] = useMutation(REMOVE_PLANT);
     const [waterPlant, { loading: waterLoading, error: waterError, data: waterData }] = useMutation(WATER_PLANT);
-    const { cache, setPlants } = useContext(PlantsContext);
+    const { cache, setPlants, searchName, setQuantity , skip, quantity } = useContext(PlantsContext);
     const [irrigationRate, setIrrigationRate] = useState<number | null>(irrigation);
     const [lastWatered, setLastWatered] = useState<string | null>(watered);
 
@@ -35,8 +35,14 @@ const useAddPlant : Function = (name, desc, watering, light, watered, irrigation
             setIrrigationRate(100);
             setLastWatered(waterData.waterPlant);
         }
-        if (removeData) setPlants(prevState => prevState.filter(plant => plant.name !== name));
-    }, [waterData, removeData, name, setPlants]);
+        if (removeData) {
+            setPlants(prevState => {
+                const filteredPlants = prevState.filter(plant => plant.name !== name);
+                return removeData.removePlant ? [...filteredPlants, removeData.removePlant] : filteredPlants;
+            });
+            setQuantity(prevState => --prevState);
+        }
+    }, [waterData, removeData, name, setPlants, setQuantity]);
 
     const handleAddPlant = (e : any) => {
         e.stopPropagation();
@@ -54,7 +60,10 @@ const useAddPlant : Function = (name, desc, watering, light, watered, irrigation
         e.stopPropagation();
         removePlant({
             variables: {
-                name
+                name,
+                searchName,
+                skip,
+                quantity
             }
         });
     }

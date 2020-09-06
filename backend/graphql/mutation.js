@@ -1,4 +1,4 @@
-const { GraphQLObjectType, GraphQLNonNull, GraphQLString, GraphQLBoolean, GraphQLInt } = require('graphql');
+const { GraphQLObjectType, GraphQLNonNull, GraphQLString, GraphQLBoolean, GraphQLInt, GraphQLList } = require('graphql');
 
 const addUserResolver = require('./resolvers/addUserResolver');
 const loginResolver = require('./resolvers/loginResolver');
@@ -44,9 +44,12 @@ const mutation = new GraphQLObjectType({
             resolve: logoutResolver
         },
         removePlant: {
-            type: GraphQLBoolean,
+            type: PlantType,
             args: {
-                name: { type: new GraphQLNonNull(GraphQLString) }
+                name: { type: new GraphQLNonNull(GraphQLString) },
+                searchName: { type: GraphQLString },
+                skip: { type: new GraphQLNonNull(GraphQLInt) },
+                quantity: { type: new GraphQLNonNull(GraphQLInt) }
             },
             resolve: removePlantResolver
         },

@@ -25,8 +25,15 @@ export const LOGOUT = gql`
 `;
 
 export const REMOVE_PLANT = gql`
-    mutation RemovePlant($name: String!) {
-        removePlant(name: $name)
+    mutation RemovePlant($name: String!, $searchName: String, $skip: Int!, $quantity: Int!) {
+        removePlant(name: $name, searchName: $searchName, skip: $skip, quantity: $quantity) {
+            name,
+            desc,
+            watering,
+            light,
+            watered,
+            irrigation
+        }
     }
 `;
 

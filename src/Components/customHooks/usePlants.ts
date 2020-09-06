@@ -12,9 +12,10 @@ type Function = (cache : boolean | undefined) => {
     plants : Array<PlantType>,
     error : any,
     loading : boolean,
-    plantName : string,
-    setPlantName : React.Dispatch<React.SetStateAction<string>>,
-    setPlants : React.Dispatch<React.SetStateAction<PlantType[]>>
+    searchName : string,
+    setSearchName : React.Dispatch<React.SetStateAction<string>>,
+    setPlants : React.Dispatch<React.SetStateAction<PlantType[]>>,
+    setQuantity : React.Dispatch<React.SetStateAction<number>>
 };
 
 export const usePlants : Function = (cache) => {
@@ -22,11 +23,11 @@ export const usePlants : Function = (cache) => {
     const [skip, setSkip] = useState<number>(1);
     const [quantity, setQuantity] = useState<number>(0);
     const [plants, setPlants] = useState<Array<PlantType>>([]);
-    const [plantName, setPlantName] = useState<string>('');
+    const [searchName, setSearchName] = useState<string>('');
     const { loading, error, data } = useQuery(PLANTS, {
         variables: {
             skip,
-            name: plantName.toLowerCase(),
+            name: searchName.toLowerCase(),
             user: !cache ? 'user' : ''
         },
         fetchPolicy: !cache ? 'no-cache' : 'cache-first'
@@ -40,5 +41,5 @@ export const usePlants : Function = (cache) => {
         }
     }, [loading, data, error, skip]);
 
-    return { skip, setSkip, quantity, plants, error, loading, plantName, setPlantName, setPlants }
+    return { skip, setSkip, quantity, plants, error, loading, searchName, setSearchName, setPlants, setQuantity }
 }

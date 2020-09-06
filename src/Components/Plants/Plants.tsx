@@ -11,7 +11,7 @@ import PlantsContext from '../../context/plantsContext';
 
 const Plants : React.FC<PlantsProps> = ({ cache }) => {
 
-    const { skip, setSkip, error, loading, quantity, plants, plantName, setPlantName, setPlants } = usePlants(cache);
+    const { skip, setSkip, error, loading, quantity, plants, searchName, setSearchName, setPlants, setQuantity } = usePlants(cache);
 
     return (
         <>
@@ -19,9 +19,9 @@ const Plants : React.FC<PlantsProps> = ({ cache }) => {
             {error ? <Error> Unable to retrieve plants. Please try again later. </Error> : null}
             {loading ? <Loading /> : null}
             {!error ? 
-                <PlantsContext.Provider value={{ cache, setPlants }}>
-                    <PlantsLayout plantName={plantName} skip={skip} setSkip={setSkip} loading={loading} quantity={quantity} plants={plants}>
-                        <SearchEngine setSkip={setSkip} setPlantName={setPlantName} />
+                <PlantsContext.Provider value={{ cache, setPlants, setQuantity, searchName, skip, quantity }}>
+                    <PlantsLayout searchName={searchName} skip={skip} setSkip={setSkip} loading={loading} quantity={quantity} plants={plants}>
+                        <SearchEngine setSkip={setSkip} setSearchName={setSearchName} />
                     </PlantsLayout>
                 </PlantsContext.Provider>
                 : null}

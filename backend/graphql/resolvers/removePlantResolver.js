@@ -9,7 +9,11 @@ const removePlantResolver = async (_, args, { req: { cookies }, res }) => {
         user.garden = user.garden.filter(({ name }) => name !== args.name);
         await User.findOneAndUpdate({ nickname: user.nickname }, { garden: user.garden }, { new: true, useFindAndModify: false });
         generateTokens(res, user.nickname);
-        return true;
+        if (args.skip * 5 < args.quantity) {
+            if (args.searchName === '' || !args.searchName) return user.garden[args.skip * 5 - 1];
+            return user.garden.filter(({ name }) => name.toLowerCase().includes(args.name))[args.skip * 5 - 1]
+        }
+        return null;
     }
     catch {
         throw new Error();
