@@ -3,6 +3,7 @@ export const parentVariants = {
         opacity: 0,
         transition: {
             ease: 'easeOut',
+            delay: 0.25
         }
     },
     visible: {
@@ -18,15 +19,16 @@ export const childVariants = {
         x: '-100%',
         transition: {
             type: 'tween',
-            ease: 'easeOut',
+            ease: 'linear',
+            duration: 0.25
         }
     },
     visible: {
         x: '0',
         transition: {
             type: 'tween',
-            duration: 0.5,
-            ease: 'easeOut',
+            duration: 0.25,
+            ease: 'linear',
             when: 'beforeChildren'
         }
     }

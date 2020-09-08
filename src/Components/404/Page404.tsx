@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Navigation from '../Navigation/Navigation';
-import { ReactComponent as SVG404 } from './404.svg';
+import { ReactComponent as SVG404 } from '../../assets/404.svg';
 import Page404Styles from './Page404.module.scss';
 
 const Page404 : React.FC = () => (

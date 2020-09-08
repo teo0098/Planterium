@@ -7,49 +7,49 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
-}
 
-.Hamburger__dashes {
-    width: 25px;
-    height: 4px;
-    border-radius: 5px;
-    background-color: $color4;
-    position: relative;
-}
+    &__dashes {
+        width: 25px;
+        height: 4px;
+        border-radius: 5px;
+        background-color: $color4;
+        position: relative;
+    }
 
-.Hamburger__dashes::before, 
-.Hamburger__dashes::after {
-    position: absolute;
-    width: inherit;
-    height: inherit;
-    border-radius: inherit;
-    background-color: inherit;
-    content: '';
-}
+    &__dashes::before,
+    &__dashes::after {
+        position: absolute;
+        width: inherit;
+        height: inherit;
+        border-radius: inherit;
+        background-color: inherit;
+        content: '';
+    }
 
-.Hamburger__dashes::before {
-    top: 7px;
-}
+    &__dashes::before {
+        top: 7px;
+    }
 
-.Hamburger__dashes::after { 
-    bottom: 7px; 
-}
+    &__dashes::after {
+        bottom: 7px;
+    }
 
-.Hamburger__dashes--close {
-    background: transparent;
-    transition: all 300ms ease-out 900ms;
-}
+    &__dashes--close {
+        background: transparent;
+        transition: all 300ms ease-out 400ms;
+    }
 
-.Hamburger__dashes--close::before {
-    background: $color4;
-    top: 0;
-    transform: rotate(45deg);
-    transition: all 300ms ease-out 900ms;
-}
+    &__dashes--close::before {
+        background: $color4;
+        top: 0;
+        transform: rotate(45deg);
+        transition: all 300ms ease-out 400ms;
+    }
 
-.Hamburger__dashes--close::after {
-    background: $color4;
-    bottom: 0;
-    transform: rotate(-45deg);
-    transition: all 300ms ease-out 900ms;
+    &__dashes--close::after {
+        background: $color4;
+        bottom: 0;
+        transform: rotate(-45deg);
+        transition: all 300ms ease-out 400ms;
+    }
 }

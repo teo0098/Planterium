@@ -7,3 +7,7 @@
     box-shadow: 0 6px 6px -4px $color4;
     border-radius: 3px;
 }
+
+@mixin bgColor {
+    background-color: $color5;
+}

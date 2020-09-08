@@ -7,28 +7,28 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-}
 
-.Intro::after {
-    content: '';
-    height: inherit;
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 0 30vw 100vh 30vw;
-    border-color: transparent $color1 $color1 transparent;
-    z-index: -1000;
-}
+    &::after {
+        content: '';
+        height: inherit;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 30vw 100vh 30vw;
+        border-color: transparent $color1 $color1 transparent;
+        z-index: -1000;
+    }
 
-.Intro__header {
-    width: 50%;
-}
+    &__header {
+        width: 50%;
+    }
 
-.Intro__h1 {
-    font-size: 40px;
+    &__h1 {
+        font-size: 40px;
+    }
 }
 
 @media (max-width: 1200px) {

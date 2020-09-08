@@ -5,15 +5,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-}
 
-.FormLayout__div {
-    background-color: $color5;
-    border-radius: 5px;
-    padding: 20px;
-    width: 25%;
-    text-align: center;
-    box-shadow: 0 0 5px 1px $color4;
+    &__div {
+        background-color: $color5;
+        border-radius: 5px;
+        padding: 20px;
+        width: 25%;
+        text-align: center;
+        box-shadow: 0 0 5px 1px $color4;
+    }
 }
 
 @media (max-width: 1200px) {

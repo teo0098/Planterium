@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useCallback } from 'react';
 import { useMutation } from '@apollo/client';
 import Button from '@material-ui/core/Button/Button';
 import { motion } from 'framer-motion';
@@ -24,8 +24,8 @@ type Function = (name : string, desc : string, watering : number, light : string
 const useAddPlant : Function = (name, desc, watering, light, watered, irrigation) => {
 
     const [addPlant, { loading: addLoading, error: addError, data: addData }] = useMutation(ADD_PLANT, { onError: () => {} });
-    const [removePlant, { loading: removeLoading, error: removeError, data: removeData }] = useMutation(REMOVE_PLANT);
-    const [waterPlant, { loading: waterLoading, error: waterError, data: waterData }] = useMutation(WATER_PLANT);
+    const [removePlant, { loading: removeLoading, error: removeError, data: removeData }] = useMutation(REMOVE_PLANT, { onError: () => {} });
+    const [waterPlant, { loading: waterLoading, error: waterError, data: waterData }] = useMutation(WATER_PLANT, { onError: () => {} });
     const { cache, setPlants, searchName, setQuantity , skip, quantity } = useContext(PlantsContext);
     const [irrigationRate, setIrrigationRate] = useState<number | null>(irrigation);
     const [lastWatered, setLastWatered] = useState<string | null>(watered);
@@ -44,7 +44,7 @@ const useAddPlant : Function = (name, desc, watering, light, watered, irrigation
         }
     }, [waterData, removeData, name, setPlants, setQuantity]);
 
-    const handleAddPlant = (e : any) => {
+    const handleAddPlant = useCallback((e : any) => {
         e.stopPropagation();
         addPlant({
             variables: {
@@ -54,9 +54,9 @@ const useAddPlant : Function = (name, desc, watering, light, watered, irrigation
                 light
             }
         });
-    }
+    }, [addPlant, desc, light, name, watering]);
 
-    const handleRemovePlant = (e : any) => {
+    const handleRemovePlant = useCallback((e : any) => {
         e.stopPropagation();
         removePlant({
             variables: {
@@ -66,18 +66,18 @@ const useAddPlant : Function = (name, desc, watering, light, watered, irrigation
                 quantity
             }
         });
-    }
+    }, [removePlant, name, searchName, skip, quantity]);
 
-    const handleWaterPlant = (e : any) => {
+    const handleWaterPlant = useCallback((e : any) => {
         e.stopPropagation();
         waterPlant({
             variables: {
                 name
             }
         });
-    }
+    }, [waterPlant, name]);
 
-    const renderAddStatus = () => {
+    const renderAddStatus = useCallback(() => {
         if (addLoading) return <Loading />;
         else if (addError) {
             if (addError.message === ERRORS.PLANT_EXISTS) return (
@@ -101,27 +101,27 @@ const useAddPlant : Function = (name, desc, watering, light, watered, irrigation
                 <Alert severity='success'> Plant has been added to your garden successfully. </Alert>
             </Modal>
         );
-    }
+    }, [addLoading, addError, addData]);
 
-    const renderRemoveStatus = () => {
+    const renderRemoveStatus = useCallback(() => {
         if (removeLoading) return <Loading />;
         else if (removeError) return (
             <Modal>
                 <Alert severity='error'> Unable to perform action. Please try again later. </Alert>
             </Modal>
         );
-    }
+    }, [removeLoading, removeError]);
 
-    const renderWaterStatus = () => {
+    const renderWaterStatus = useCallback(() => {
         if (waterLoading) return <Loading />;
         else if (waterError) return (
             <Modal>
                 <Alert severity='error'> Unable to perform action. Please try again later. </Alert>
             </Modal>
         );
-    }
+    }, [waterLoading, waterError]);
 
-    const renderButton = () => {
+    const renderButton = useCallback(() => {
         if (cache) return (
             <Button onClick={handleAddPlant} style={buttonStyles} variant="contained" color="primary">Add to my garden</Button>
         )
@@ -131,9 +131,9 @@ const useAddPlant : Function = (name, desc, watering, light, watered, irrigation
                 <Button style={{ marginTop: '10px' }} onClick={handleRemovePlant} variant="contained" color="secondary">Remove from my garden</Button>
             </div>
         )
-    }
+    }, [cache, handleAddPlant, handleRemovePlant, handleWaterPlant]); 
 
-    const renderInfo = () => {
+    const renderInfo = useCallback(() => {
         return (
             <>
                 {desc ? <PlantSectionInfo info="Description"> {desc} </PlantSectionInfo> : null}
@@ -151,7 +151,7 @@ const useAddPlant : Function = (name, desc, watering, light, watered, irrigation
                 : null}
             </>
         )
-    }
+    }, [desc, irrigation, irrigationRate, lastWatered, light, watered, watering]);
 
     return { renderAddStatus, renderButton, renderInfo, renderRemoveStatus, renderWaterStatus }
 }

@@ -21,4 +21,10 @@
         justify-content: center;
         margin: 10px 0;
     }
+
+    @media (max-width: 900px) {
+        & {
+            @include bgColor();
+        }
+    }
 }

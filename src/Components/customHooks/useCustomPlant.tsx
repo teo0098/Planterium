@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useCallback } from 'react';
 import { useMutation } from '@apollo/client';
 import Alert from '@material-ui/lab/Alert/Alert';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -14,18 +14,22 @@ const useCustomPlant : Function = (menu) => {
 
     const [createCustomPlant, { loading, error, data }] = useMutation(CREATE_CUSTOM_PLANT, { onError: () => {} });
     const [called, setCalled] = useState<boolean>(false);
-    const { setPlants } = useContext(PlantsContext);
+    const { setPlants, skip, quantity } = useContext(PlantsContext);
 
     useEffect(() => {
         if (!menu) setCalled(false);
         if (data) setPlants(prevState => {
             const contain = prevState.find(({ name }) => name === data.createCustomPlant.name);
-            if (!contain) return [data.createCustomPlant, ...prevState];
+            if (!contain) {
+                const newPlants = [data.createCustomPlant, ...prevState];
+                if (skip * 5 < quantity) newPlants.pop();
+                return newPlants; 
+            }
             return prevState;
         });
-    }, [menu, data, setPlants]);
+    }, [menu, data, setPlants, skip, quantity]);
 
-    const handleOnSubmit = (values : any) => {
+    const handleOnSubmit = useCallback((values : any) => {
         setCalled(true);
         createCustomPlant({
             variables: {
@@ -35,9 +39,9 @@ const useCustomPlant : Function = (menu) => {
                 light: values.light
             }
         });
-    }
+    }, [createCustomPlant]); 
 
-    const renderStatus = () => {
+    const renderStatus = useCallback(() => {
         if (loading) return <CircularProgress />;
         else if (error) {
             if (error.message === ERRORS.PLANT_EXISTS) return (
@@ -56,9 +60,9 @@ const useCustomPlant : Function = (menu) => {
                 <Alert severity='success'> Plant has been added to your garden successfully. </Alert>
             </Modal>
         )
-    }
+    }, [loading, error, data]);
 
-    const renderDiv = () => {
+    const renderDiv = useCallback(() => {
         return (
             called ?
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -66,7 +70,7 @@ const useCustomPlant : Function = (menu) => {
                 </div>
             : null
         )
-    }
+    }, [called, renderStatus]);
 
     return { handleOnSubmit, renderDiv };
 }
