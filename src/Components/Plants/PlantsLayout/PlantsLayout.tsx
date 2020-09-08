@@ -16,10 +16,10 @@ import PlantsContext from '../../../context/plantsContext';
 import CustomPlant from './CustomPlant/CustomPlant';
 import NotFound from './NotFound/NotFound';
 
-const PlantsLayout : React.FC<PlantsLayoutProps> = ({ plants, skip, quantity, loading, setSkip, children, searchName }) => {
+const PlantsLayout : React.FC<PlantsLayoutProps> = ({ plants, loading, setSkip, children }) => {
 
     const [layout, changeLayout] = usePlantsLayout();
-    const { cache } = useContext(PlantsContext);
+    const { cache, skip, quantity, searchName } = useContext(PlantsContext);
 
     return (
         <>
@@ -28,7 +28,7 @@ const PlantsLayout : React.FC<PlantsLayoutProps> = ({ plants, skip, quantity, lo
                 {plants.length !== 0 ?
                     <>
                         <div className={PlantsLayoutStyles.Plants__layout}>
-                            {!cache ? <CustomPlant /> : null}
+                            {!cache && !searchName ? <CustomPlant /> : null}
                             <div className={PlantsLayoutStyles.Plants__layouts}>
                                 <RowsIcon style={{ fontSize: '30px', cursor: 'pointer', color: layout === 'rows' ? color1 : color4 }} 
                                 onClick={() => changeLayout('rows')} />

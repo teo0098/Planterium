@@ -20,7 +20,7 @@ const Plants : React.FC<PlantsProps> = ({ cache }) => {
             {loading ? <Loading /> : null}
             {!error ? 
                 <PlantsContext.Provider value={{ cache, setPlants, setQuantity, searchName, skip, quantity }}>
-                    <PlantsLayout searchName={searchName} skip={skip} setSkip={setSkip} loading={loading} quantity={quantity} plants={plants}>
+                    <PlantsLayout setSkip={setSkip} loading={loading} plants={plants}>
                         <SearchEngine setSkip={setSkip} setSearchName={setSearchName} />
                     </PlantsLayout>
                 </PlantsContext.Provider>
