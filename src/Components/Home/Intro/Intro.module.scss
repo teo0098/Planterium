@@ -28,6 +28,7 @@
 
     &__h1 {
         font-size: 40px;
+        line-height: 1.8;
     }
 }
 
@@ -42,6 +43,12 @@
 }
 
 @media (max-width: 900px) {
+    .Intro {
+        flex-direction: column-reverse;
+        justify-content: center;
+        text-align: center;
+    }
+
     .Intro__h1 {
         font-size: 30px;
     }
@@ -49,23 +56,30 @@
     .Intro__header {
         width: 80%;
     }
-
-    .Intro__icon {
-        display: none;
-    }
 }
 
 @media (max-width: 700px) {
-    .Intro {
-        justify-content: center;
-        text-align: center;
-    }
-
     .Intro__h1 {
         font-size: 25px;
     }
 
     .Intro__header {
         width: 100%;
+    }
+}
+
+@media (min-width: 330px) and (max-width: 900px) {
+    .Intro__h1{
+        margin-top: 50px;
+    }
+}
+
+@media (max-width: 330px), (max-height: 450px) {
+    .Intro__h1 {
+        line-height: unset;
+    }
+
+    .Intro__icon {
+        display: none;
     }
 }

@@ -14,12 +14,13 @@
     cursor: pointer;
     position: relative;
     user-select: none;
+    word-break: break-all;
 
     &__nav {
         position: absolute;
         top: calc(100% + 7px);
-        left: 0;
-        width: 100%;
+        right: 0;
+        width: 130px;
         background: $color5;
         display: flex;
         flex-direction: column;

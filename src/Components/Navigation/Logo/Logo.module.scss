@@ -1,6 +1,10 @@
+@import '../../../scssSettings/colors';
+
 .Logo {
     display: flex;
     align-items: center;
+    text-decoration: none;
+    color: $color4;
 
     &__h2 {
         font-size: 26px;

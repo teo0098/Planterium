@@ -5,16 +5,16 @@ const generateTokens = (res, nickname) => {
     const refreshToken = sign({ nickname }, process.env.JWT_REFRESH_TOKEN, { expiresIn: '1d' });
     res.cookie('access-token', accessToken, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production' ? true : false,
+        secure: false,
         maxAge: 1000 * 60 * 5 // 5 min
     });
     res.cookie('refresh-token', refreshToken, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production' ? true : false,
+        secure: false,
         maxAge: 1000 * 60 * 60 * 24 // 1 day
     });
     res.cookie('user', nickname, {
-        secure: process.env.NODE_ENV === 'production' ? true : false,
+        secure: false,
         maxAge: 1000 * 60 * 60 * 24 // 1 day
     });
 }

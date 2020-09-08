@@ -8,6 +8,12 @@
     align-items: center;
     cursor: pointer;
 
+    @media (max-width: 500px) {
+        & {
+            margin-right: 5px;
+        }
+    }
+
     &__dashes {
         width: 25px;
         height: 4px;
@@ -36,20 +42,20 @@
 
     &__dashes--close {
         background: transparent;
-        transition: all 300ms ease-out 400ms;
+        transition: all 300ms ease-out 900ms;
     }
 
     &__dashes--close::before {
         background: $color4;
         top: 0;
         transform: rotate(45deg);
-        transition: all 300ms ease-out 400ms;
+        transition: all 300ms ease-out 900ms;
     }
 
     &__dashes--close::after {
         background: $color4;
         bottom: 0;
         transform: rotate(-45deg);
-        transition: all 300ms ease-out 400ms;
+        transition: all 300ms ease-out 900ms;
     }
 }
