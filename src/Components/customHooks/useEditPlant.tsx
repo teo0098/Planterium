@@ -18,7 +18,9 @@ type Function = (name : string, desc : string, watering : number, light : string
     renderButton : () => JSX.Element | undefined,
     renderInfo : () => JSX.Element | undefined,
     renderRemoveStatus : () => JSX.Element | undefined,
-    renderWaterStatus : () => JSX.Element | undefined
+    renderWaterStatus : () => JSX.Element | undefined,
+    wrapDown : boolean,
+    setWrapDown : React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const useAddPlant : Function = (name, desc, watering, light, watered, irrigation) => {
@@ -29,8 +31,11 @@ const useAddPlant : Function = (name, desc, watering, light, watered, irrigation
     const { cache, setPlants, searchName, setQuantity , skip, quantity } = useContext(PlantsContext);
     const [irrigationRate, setIrrigationRate] = useState<number | null>(irrigation);
     const [lastWatered, setLastWatered] = useState<string | null>(watered);
+    const [called, setCalled] = useState<boolean>(false);
+    const [wrapDown, setWrapDown] = useState<boolean>(false);
 
     useEffect(() => {
+        if (!wrapDown) setCalled(false);
         if (waterData) {
             setIrrigationRate(100);
             setLastWatered(waterData.waterPlant);
@@ -42,10 +47,11 @@ const useAddPlant : Function = (name, desc, watering, light, watered, irrigation
             });
             setQuantity(prevState => --prevState);
         }
-    }, [waterData, removeData, name, setPlants, setQuantity]);
+    }, [waterData, removeData, name, setPlants, setQuantity, wrapDown]);
 
     const handleAddPlant = useCallback((e : any) => {
         e.stopPropagation();
+        setCalled(true);
         addPlant({
             variables: {
                 name,
@@ -58,6 +64,7 @@ const useAddPlant : Function = (name, desc, watering, light, watered, irrigation
 
     const handleRemovePlant = useCallback((e : any) => {
         e.stopPropagation();
+        setCalled(true);
         removePlant({
             variables: {
                 name,
@@ -70,6 +77,7 @@ const useAddPlant : Function = (name, desc, watering, light, watered, irrigation
 
     const handleWaterPlant = useCallback((e : any) => {
         e.stopPropagation();
+        setCalled(true);
         waterPlant({
             variables: {
                 name
@@ -79,7 +87,7 @@ const useAddPlant : Function = (name, desc, watering, light, watered, irrigation
 
     const renderAddStatus = useCallback(() => {
         if (addLoading) return <Loading />;
-        else if (addError) {
+        else if (addError && called) {
             if (addError.message === ERRORS.PLANT_EXISTS) return (
                 <Modal>
                     <Alert severity='info'> This plant is already included in your garden. </Alert>
@@ -96,30 +104,30 @@ const useAddPlant : Function = (name, desc, watering, light, watered, irrigation
                 </Modal>
             );
         }
-        else if (addData) return (
+        else if (addData && called) return (
             <Modal>
                 <Alert severity='success'> Plant has been added to your garden successfully. </Alert>
             </Modal>
         );
-    }, [addLoading, addError, addData]);
+    }, [addLoading, addError, addData, called]);
 
     const renderRemoveStatus = useCallback(() => {
         if (removeLoading) return <Loading />;
-        else if (removeError) return (
+        else if (removeError && called) return (
             <Modal>
                 <Alert severity='error'> Unable to perform action. Please try again later. </Alert>
             </Modal>
         );
-    }, [removeLoading, removeError]);
+    }, [removeLoading, removeError, called]);
 
     const renderWaterStatus = useCallback(() => {
         if (waterLoading) return <Loading />;
-        else if (waterError) return (
+        else if (waterError && called) return (
             <Modal>
                 <Alert severity='error'> Unable to perform action. Please try again later. </Alert>
             </Modal>
         );
-    }, [waterLoading, waterError]);
+    }, [waterLoading, waterError, called]);
 
     const renderButton = useCallback(() => {
         if (cache) return (
@@ -153,7 +161,7 @@ const useAddPlant : Function = (name, desc, watering, light, watered, irrigation
         )
     }, [desc, irrigation, irrigationRate, lastWatered, light, watered, watering]);
 
-    return { renderAddStatus, renderButton, renderInfo, renderRemoveStatus, renderWaterStatus }
+    return { renderAddStatus, renderButton, renderInfo, renderRemoveStatus, renderWaterStatus, wrapDown, setWrapDown }
 }
 
 export default useAddPlant;

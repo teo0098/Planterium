@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ArrowDownIcon from '@material-ui/icons/ArrowDropDownRounded';
 import InfoIcon from '@material-ui/icons/InfoOutlined';
 
@@ -9,8 +9,10 @@ import PlantProps from '../plantProps';
 
 const ColumnLayout : React.FC<PlantProps> = ({ plant: { name, desc, watering, light, watered, irrigation } }) => {
 
-    const [wrapDown, setWrapDown] = useState<boolean>(false);
-    const { renderAddStatus, renderButton, renderInfo, renderRemoveStatus, renderWaterStatus } = useEditPlant(name, desc, watering, light, watered, irrigation);
+    const { 
+        renderAddStatus, renderButton, renderInfo, renderRemoveStatus, renderWaterStatus,
+        wrapDown, setWrapDown
+    } = useEditPlant(name, desc, watering, light, watered, irrigation);
 
     return (
         <section className={ColumnLayoutStyles.Plant} onClick={() => setWrapDown(!wrapDown)}>  
