@@ -3,6 +3,7 @@ const expressGraphQL = require('express-graphql');
 const { GraphQLSchema } = require('graphql');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const path = require('path');
 
 require('./dbconnection');
 const rootQuery = require('./graphql/rootQuery');
@@ -27,5 +28,13 @@ server.use('/graphql', expressGraphQL((req, res) => ({
     graphiql: process.env.NODE_ENV !== 'production' ? true : false,
     context: { req, res }
 })));
+
+if (process.env.NODE_ENV === 'production') {
+    server.use(express.static(path.join(__dirname, "../build")));
+
+    server.get('*', (_, res) => {
+        res.sendFile(path.join(__dirname, "../build/index.html"));
+    });
+}
 
 server.listen(process.env.PORT || 5000, () => console.log('Server is running...'));
