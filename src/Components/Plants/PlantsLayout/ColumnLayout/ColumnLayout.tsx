@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import ArrowDownIcon from '@material-ui/icons/ArrowDropDownRounded';
 import InfoIcon from '@material-ui/icons/InfoOutlined';
-import { motion, AnimatePresence } from 'framer-motion';
 
 import ColumnLayoutStyles from './ColumnLayout.module.scss';
 import PlantFlowerIcon from '../PlantFlowerIcon/PlantFlowerIcon';
@@ -21,22 +20,18 @@ const ColumnLayout : React.FC<PlantProps> = ({ plant: { name, desc, watering, li
                 <InfoIcon style={{ fontSize: '30px' }} />
                 <ArrowDownIcon style={{ fontSize: '60px' }} />
             </div>
-            <AnimatePresence>
-                {wrapDown && (
-                    <motion.div
-                    initial={{ height: 0, overflow: 'hidden' }}
-                    animate={{ height: 'auto' }}
-                    exit={{ height: 0 }}>
-                        {renderInfo()}
-                        {renderAddStatus()}
-                        {renderRemoveStatus()}
-                        {renderWaterStatus()}
-                        <div className={ColumnLayoutStyles.Plant__div}>
-                            {renderButton()}
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+            {wrapDown ?
+                <div>
+                    {renderInfo()}
+                    {renderAddStatus()}
+                    {renderRemoveStatus()}
+                    {renderWaterStatus()}
+                    <div className={ColumnLayoutStyles.Plant__div}>
+                        {renderButton()}
+                    </div>
+                </div>
+                : null
+            }
         </section>
     )
 }

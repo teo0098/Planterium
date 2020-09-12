@@ -4,6 +4,7 @@
     @include plant();
     flex-direction: column;
     cursor: pointer;
+    user-select: none;
 
     &__h3 {
         padding: 10px 0 5px 0;
