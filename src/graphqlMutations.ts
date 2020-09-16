@@ -13,8 +13,8 @@ export const LOGIN = gql`
 `;
 
 export const ADD_PLANT = gql`
-    mutation AddPlant($name: String!, $desc: String!, $watering: Int!, $light: String!) {
-        addPlant(name: $name, desc: $desc, watering: $watering, light: $light)
+    mutation AddPlant($name: String!, $desc: String!, $watering: Int!, $light: String!, $lastWatered: String!) {
+        addPlant(name: $name, desc: $desc, watering: $watering, light: $light, lastWatered: $lastWatered)
     }
 `;
 
@@ -38,14 +38,14 @@ export const REMOVE_PLANT = gql`
 `;
 
 export const WATER_PLANT = gql`
-    mutation WaterPlant($name: String!) {
-        waterPlant(name: $name)
+    mutation WaterPlant($name: String!, $lastWatered: String!) {
+        waterPlant(name: $name, lastWatered: $lastWatered)
     }
 `;
 
 export const CREATE_CUSTOM_PLANT = gql`
-    mutation CreateCustomPlant($name: String!, $watering: Int!, $desc: String, $light: String) {
-        createCustomPlant(name: $name, watering: $watering, desc: $desc, light: $light) {
+    mutation CreateCustomPlant($name: String!, $watering: Int!, $desc: String, $light: String, $lastWatered: String!) {
+        createCustomPlant(name: $name, watering: $watering, desc: $desc, light: $light, lastWatered: $lastWatered) {
             name,
             desc,
             watering,

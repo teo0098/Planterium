@@ -35,7 +35,8 @@ const mutation = new GraphQLObjectType({
                 name: { type: new GraphQLNonNull(GraphQLString) },
                 desc: { type: new GraphQLNonNull(GraphQLString) },
                 watering: { type: new GraphQLNonNull(GraphQLInt) },
-                light: { type: new GraphQLNonNull(GraphQLString) }
+                light: { type: new GraphQLNonNull(GraphQLString) },
+                lastWatered: { type: new GraphQLNonNull(GraphQLString) }
             },
             resolve: addPlantResolver
         },
@@ -56,7 +57,8 @@ const mutation = new GraphQLObjectType({
         waterPlant: {
             type: GraphQLString,
             args: {
-                name: { type: new GraphQLNonNull(GraphQLString) }
+                name: { type: new GraphQLNonNull(GraphQLString) },
+                lastWatered: { type: new GraphQLNonNull(GraphQLString) }
             },
             resolve: waterPlantResolver
         },
@@ -66,7 +68,8 @@ const mutation = new GraphQLObjectType({
                 name: { type: new GraphQLNonNull(GraphQLString) },
                 watering: { type: new GraphQLNonNull(GraphQLInt) },
                 desc: { type: GraphQLString },
-                light: { type: GraphQLString }
+                light: { type: GraphQLString },
+                lastWatered: { type: new GraphQLNonNull(GraphQLString) }
             },
             resolve: createCustomPlantResolver
         }

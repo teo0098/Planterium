@@ -7,6 +7,7 @@ import { CREATE_CUSTOM_PLANT } from '../../graphqlMutations';
 import Modal from '../Modal/Modal';
 import ERRORS from '../../ERRORS';
 import PlantsContext from '../../context/plantsContext';
+import useGenerateDate from './useGenerateDate';
 
 type Function = (menu : boolean) => { handleOnSubmit : (values : any) => any, renderDiv : () => JSX.Element | null };
 
@@ -15,6 +16,7 @@ const useCustomPlant : Function = (menu) => {
     const [createCustomPlant, { loading, error, data }] = useMutation(CREATE_CUSTOM_PLANT, { onError: () => {} });
     const [called, setCalled] = useState<boolean>(false);
     const { setPlants, skip, quantity } = useContext(PlantsContext);
+    const generateDate = useGenerateDate();
 
     useEffect(() => {
         if (!menu) setCalled(false);
@@ -36,10 +38,11 @@ const useCustomPlant : Function = (menu) => {
                 name: values.name,
                 watering: +values.watering,
                 desc: values.desc,
-                light: values.light
+                light: values.light,
+                lastWatered: generateDate()
             }
         });
-    }, [createCustomPlant]); 
+    }, [createCustomPlant, generateDate]); 
 
     const renderStatus = useCallback(() => {
         if (loading) return <CircularProgress />;

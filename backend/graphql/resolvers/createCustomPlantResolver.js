@@ -1,7 +1,6 @@
 const isAuth = require('../../middlewares/isAuth');
 const { PLANT_EXISTS } = require('../../ERRORS');
 const generateTokens = require('../../middlewares/generateTokens');
-const generateDate = require('../../middlewares/generateDate');
 const User = require('../../models/user');
 const generatePercentages = require('../../middlewares/generatePercentages');
 const validateData = require('../../middlewares/validateData');
@@ -15,7 +14,7 @@ const createCustomPlantResolver = async (_, args, { req: { cookies }, res }) => 
         if (!validateData(args)) throw new Error();
         const newPlant = {
             ...args,
-            watered: generateDate(),
+            watered: args.lastWatered,
             irrigation: Date.now()
         }
         user.garden.unshift(newPlant);

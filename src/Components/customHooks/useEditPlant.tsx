@@ -12,6 +12,7 @@ import PlantsContext from '../../context/plantsContext';
 import buttonStyles from '../../tsStyleSettings/buttonStyles';
 import PlantSectionInfo from '../Plants/PlantsLayout/PlantSectionInfo/PlantSectionInfo';
 import { color6, color7 } from '../../tsStyleSettings/colors';
+import useGenerateDate from './useGenerateDate';
 
 type Function = (name : string, desc : string, watering : number, light : string, watered : string | null, irrigation : number | null) => {
     renderAddStatus : () => JSX.Element | undefined,
@@ -33,6 +34,7 @@ const useAddPlant : Function = (name, desc, watering, light, watered, irrigation
     const [lastWatered, setLastWatered] = useState<string | null>(watered);
     const [called, setCalled] = useState<boolean>(false);
     const [wrapDown, setWrapDown] = useState<boolean>(false);
+    const generateDate = useGenerateDate();
 
     useEffect(() => {
         if (!wrapDown) setCalled(false);
@@ -57,10 +59,11 @@ const useAddPlant : Function = (name, desc, watering, light, watered, irrigation
                 name,
                 desc,
                 watering,
-                light
+                light,
+                lastWatered: generateDate()
             }
         });
-    }, [addPlant, desc, light, name, watering]);
+    }, [addPlant, desc, light, name, watering, generateDate]);
 
     const handleRemovePlant = useCallback((e : any) => {
         e.stopPropagation();
@@ -80,10 +83,11 @@ const useAddPlant : Function = (name, desc, watering, light, watered, irrigation
         setCalled(true);
         waterPlant({
             variables: {
-                name
+                name,
+                lastWatered: generateDate()
             }
         });
-    }, [waterPlant, name]);
+    }, [waterPlant, name, generateDate]);
 
     const renderAddStatus = useCallback(() => {
         if (addLoading) return <Loading />;

@@ -1,6 +1,5 @@
 const isAuth = require('../../middlewares/isAuth');
 const generateTokens = require('../../middlewares/generateTokens');
-const generateDate = require('../../middlewares/generateDate');
 const User = require('../../models/user');
 
 const waterPlantResolver = async (_, args, { req: { cookies }, res }) => {
@@ -9,7 +8,7 @@ const waterPlantResolver = async (_, args, { req: { cookies }, res }) => {
         if (!user) throw new Error();
         const plant = user.garden.find(({ name }) => name === args.name);
         if (!plant) throw new Error();
-        plant.watered = generateDate();
+        plant.watered = args.lastWatered;
         plant.irrigation = Date.now();
         const plantIndex = user.garden.findIndex(({ name }) => name === args.name);
         if (plantIndex === -1) throw new Error();

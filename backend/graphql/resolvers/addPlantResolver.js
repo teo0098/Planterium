@@ -2,10 +2,9 @@ const User = require('../../models/user');
 const { PLANT_EXISTS, UNAUTHORIZED } = require('../../ERRORS');
 const isAuth = require('../../middlewares/isAuth');
 const generateTokens = require('../../middlewares/generateTokens');
-const generateDate = require('../../middlewares/generateDate');
 const validateData = require('../../middlewares/validateData');
 
-const addUserResolver = async (_, args, { req: { cookies }, res }) => {
+const addPlantResolver = async (_, args, { req: { cookies }, res }) => {
     try {
         const user = await isAuth(cookies);
         if (!user) throw new Error(UNAUTHORIZED);
@@ -14,7 +13,7 @@ const addUserResolver = async (_, args, { req: { cookies }, res }) => {
         if (!validateData(args)) throw new Error();
         const newPlant = {
             ...args,
-            watered: generateDate(),
+            watered: args.lastWatered,
             irrigation: Date.now()
         }
         user.garden.push(newPlant);
@@ -28,4 +27,4 @@ const addUserResolver = async (_, args, { req: { cookies }, res }) => {
     }
 };
 
-module.exports = addUserResolver;
+module.exports = addPlantResolver;
